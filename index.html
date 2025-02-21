@@ -931,6 +931,8 @@ code {
 <p>refs</p>
 </li>
 </ul>
+<h3 id="git-internals-working">GIT INTERNALS WORKING</h3>
+<p><img src="images/git.png" alt="alt text"></p>
 <pre class="hljs"><code><div>
 <span class="hljs-comment"># find the type of the object</span>
 
@@ -1086,6 +1088,22 @@ code {
 
 &gt; sudo mv /tmp/index.html /var/www/html/
 </div></code></pre>
+<h3 id="aws-vpc-architecture">AWS VPC ARCHITECTURE</h3>
+<p><img src="images/AWS_VPC.png" alt="alt text"></p>
+<hr>
+<p><img src="images/AWS_VPC_2.png" alt="alt text"></p>
+<hr>
+<h3 id="aws-vpc-peering">AWS VPC PEERING</h3>
+<p><img src="images/VPCPeering.png" alt="alt text"></p>
+<hr>
+<h3 id="aws-elastic-load-balancer">AWS ELASTIC LOAD BALANCER</h3>
+<p><img src="images/AWS_ElasticLoadBalancer.png" alt="alt text"></p>
+<hr>
+<h3 id="aws-s3">AWS S3</h3>
+<p><img src="images/AWS_S3.png" alt="alt text"></p>
+<hr>
+<h3 id="jumpbox-architecture">JUMPBOX ARCHITECTURE</h3>
+<p><img src="images/JUMPBOX.png" alt="alt text"></p>
 <hr>
 <div style="page-break-after: always;"></div>
 <h1 id="terraform">Terraform</h1>
@@ -1419,7 +1437,11 @@ sudo  tee  /etc/apt/sources.list.d/docker.list  &gt;  /dev/null
 <span class="hljs-comment"># this container will run by default in attached mode</span>
 &gt; docker container run --name &lt;name&gt;  &lt;image name or id&gt;
 
-<span class="hljs-comment"># run the container in detached mode (background)</span>
+</div></code></pre>
+<hr>
+<h3 id="attached-mode-architecture">Attached Mode Architecture</h3>
+<p><img src="images/Docker_attached_mode.png" alt="alt text"></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># run the container in detached mode (background)</span>
 <span class="hljs-comment"># -d: detached mode</span>
 <span class="hljs-comment"># -i: enable the docker interactive mode</span>
 <span class="hljs-comment"># -t: enable the teletype terminal for the docker</span>
@@ -1433,9 +1455,11 @@ sudo  tee  /etc/apt/sources.list.d/docker.list  &gt;  /dev/null
 <span class="hljs-comment"># - port exposed by the container</span>
 <span class="hljs-comment"># &gt; docker container run --name &lt;name&gt; -itd -p &lt;source port&gt;:&lt;container port&gt; &lt;image name or id&gt;</span>
 &gt; docker container run --name myhttpd -itd -p 8080:80 httpd
-
-
-<span class="hljs-comment"># run mysql in a container</span>
+</div></code></pre>
+<hr>
+<h3 id="port-forwarding-architecture">Port forwarding Architecture</h3>
+<p><img src="images/Port_Forwarding.png" alt="alt text"></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># run mysql in a container</span>
 &gt; docker container run --name mysql -itd -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root  mysql
 
 <span class="hljs-comment"># execute a command inside the container</span>
@@ -1472,6 +1496,8 @@ sudo  tee  /etc/apt/sources.list.d/docker.list  &gt;  /dev/null
 <span class="hljs-comment"># &gt; docker container run --name &lt;name&gt; -itd -p &lt;source port&gt;:&lt;container port&gt; -v &lt;volume name&gt;:&lt;mount point inside the container&gt; &lt;image name&gt;</span>
 &gt; docker container run --name mysql -itd -p 3306:3306 -v myvolume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root  mysql
 </div></code></pre>
+<h3 id="volume-architecture">Volume Architecture</h3>
+<p><img src="images/Volumes.png" alt="alt text"></p>
 <h2 id="images">images</h2>
 <ul>
 <li>
@@ -1811,6 +1837,7 @@ sudo kubeadm init --apiserver-advertise-address=<span class="hljs-string">"<span
 
 <span class="hljs-comment"># MASTER_PRIVATE_IP=192.x.x.x</span>
 
+
 <span class="hljs-comment"># Configure kubeconfig</span>
 mkdir -p <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube
 sudo cp -i /etc/kubernetes/admin.conf <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube/config
@@ -1892,6 +1919,10 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 <span class="hljs-comment"># if -c is not given, the first container will execute the command</span>
 &gt; kubectl <span class="hljs-built_in">exec</span> -it &lt;pod name&gt; -c &lt;container name&gt; -- bash
 </div></code></pre>
+<hr>
+<h3 id="sidecar-pattern-vs-init-container-pattern">Sidecar Pattern vs Init-container pattern</h3>
+<p><img src="images/k8s_sidecar_VS_initcontainer.png" alt="alt text"></p>
+<hr>
 <h2 id="replica-sets">replica sets</h2>
 <ul>
 <li>used to create multiple replicas of selected pod</li>
@@ -1911,6 +1942,8 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 <span class="hljs-comment"># delete a replica-set</span>
 &gt; kubectl delete replicaset &lt;rs name&gt;
 </div></code></pre>
+<h3 id="replicaset-architecture">Replicaset Architecture</h3>
+<p><img src="images/k8s-replica-set.png" alt="alt text"></p>
 <h2 id="service">service</h2>
 <ul>
 <li>
@@ -2013,6 +2046,8 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 <span class="hljs-comment"># get the service details</span>
 &gt; kubectl describe service &lt;service name&gt;
 </div></code></pre>
+<h3 id="service-architecture">Service architecture</h3>
+<p><img src="images/k8s-service.png" alt="alt text"></p>
 <h2 id="config-map">config map</h2>
 <ul>
 <li>
@@ -2093,6 +2128,9 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 <span class="hljs-comment"># delete deployment</span>
 &gt; kubectl delete deploy &lt;deploy name&gt;
 </div></code></pre>
+<hr>
+<h3 id="deployment-architecture">Deployment architecture</h3>
+<h2 id="alt-text"><img src="images/k8s-deployment.png" alt="alt text"></h2>
 <h2 id="rollout">rollout</h2>
 <pre class="hljs"><code><div><span class="hljs-comment"># restart the deployment using rollout</span>
 <span class="hljs-comment"># this will force deployment to load the new version from docker hub</span>
@@ -2137,6 +2175,10 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 <span class="hljs-comment"># delete a pvc</span>
 &gt; kubectl delete pvc &lt;pvc name&gt;
 </div></code></pre>
+<hr>
+<h3 id="persistent-volume-claim-architecture">persistent volume claim architecture</h3>
+<p><img src="images/K8S_PVC.png" alt="alt text"></p>
+<hr>
 <h2 id="metrics-service">metrics service</h2>
 <pre class="hljs"><code><div><span class="hljs-comment"># apply the metrics server yaml</span>
 &gt; kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
@@ -2171,6 +2213,9 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 <span class="hljs-comment"># delete a selected hpa</span>
 &gt; kubectl delete hpa &lt;hpa name&gt;
 </div></code></pre>
+<hr>
+<h3 id="metrics-service-and-hpa-architecture">Metrics service and HPA architecture</h3>
+<p><img src="images/k8s_metrics_service.png" alt="alt text"></p>
 <h2 id="job">job</h2>
 <pre class="hljs"><code><div><span class="hljs-comment"># get the list of jobs</span>
 &gt; kubectl get <span class="hljs-built_in">jobs</span>
@@ -2256,6 +2301,9 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 <hr>
 <div style="page-break-after: always;"></div>
 <h1 id="jenkins">Jenkins</h1>
+<h3 id="architecture">Architecture</h3>
+<hr>
+<p><img src="images/Jenkins.png" alt="alt text"></p>
 <h2 id="installation">installation</h2>
 <pre class="hljs"><code><div><span class="hljs-comment"># update the apt cache</span>
 &gt; sudo apt-get update
