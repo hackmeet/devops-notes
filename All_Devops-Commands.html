@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>All_Devops-Commands.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="devops-commands-guide">Devops Commands Guide</h1>
+<hr>
+<h2 id="linux-intro-and-commands">Linux Intro and Commands</h2>
+<h3 id="deployable-package-management">Deployable package management</h3>
+<ul>
+<li>
+<p>packages</p>
+</li>
+<li>
+<p>application code or executable</p>
+</li>
+<li>
+<p>dependencies (libraries or other packages)</p>
+</li>
+<li>
+<p>types</p>
+</li>
+<li>
+<p>red hat</p>
+</li>
+<li>
+<p>rpm format (red hat package manager)</p>
+</li>
+<li>
+<p>package manager</p>
+</li>
+<li>
+<p>rpm: offline package manager</p>
+</li>
+<li>
+<p>yum or dnf: online package manager</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># update the yum sources</span>
+&gt; sudo yum update
+
+<span class="hljs-comment"># install apache2</span>
+&gt; sudo yum install httpd
+</div></code></pre>
+<ul>
+<li>
+<p>debian</p>
+</li>
+<li>
+<p>deb format</p>
+</li>
+<li>
+<p>package manager</p>
+</li>
+<li>
+<p>dpkg: offline package manager</p>
+</li>
+<li>
+<p>apt or apt-get or snap: online package manager</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># update the apt sources</span>
+&gt; sudo apt-get update
+
+<span class="hljs-comment"># install required application</span>
+&gt; sudo apt-get install htop apache2
+
+<span class="hljs-comment"># purge or remove the package</span>
+&gt; sudo apt-get purge apache2  
+</div></code></pre>
+<h1 id="service-management">service management</h1>
+<ul>
+<li>
+<p>service</p>
+</li>
+<li>
+<p>application which runs in the background</p>
+</li>
+<li>
+<p>does not have any GUI</p>
+</li>
+<li>
+<p>uses daemons to provide the functionality</p>
+</li>
+<li>
+<p>controled by systemd (system daemon)</p>
+</li>
+<li>
+<p>systemd is the first process which starts after the computer boots</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># syntax</span>
+<span class="hljs-comment"># &gt; sudo systemctl &lt;operation&gt; &lt;daemon or service&gt;</span>
+<span class="hljs-comment"># get the status of the service</span>
+&gt; sudo systemctl status apache2
+
+<span class="hljs-comment"># start the service</span>
+&gt; sudo systemctl start apache2 
+
+<span class="hljs-comment"># restart the service</span>
+&gt; sudo systemctl restart apache2
+
+<span class="hljs-comment"># stop the service</span>
+&gt; sudo systemctl stop apache2
+
+  
+<span class="hljs-comment"># start the service at the time of system boot</span>
+&gt; sudo systemctl <span class="hljs-built_in">enable</span> apache2
+
+  
+<span class="hljs-comment"># disable the service from running at the system boot</span>
+&gt; sudo systemctl <span class="hljs-built_in">disable</span> apache2
+
+<span class="hljs-comment"># check if the apache2 is working</span>
+&gt; curl http://locahost
+
+&gt; curl http://127.0.0.1
+
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># add http service in firewall</span>
+&gt; sudo firewall-cmd --add-service http --permanent
+
+<span class="hljs-comment"># reload the firewall settings</span>
+&gt; sudo firewall-cmd --reload
+
+<span class="hljs-comment"># get the list of allowed services</span>
+&gt; sudo firewall-cmd --list-services
+
+</div></code></pre>
+<h1 id="vim-text-editor">vim: text editor</h1>
+<pre class="hljs"><code><div>
+<span class="hljs-comment"># install vim</span>
+
+&gt; sudo apt-get install vim
+
+&gt; sudo yum install vim
+
+&gt; sudo dnf install vim
+
+</div></code></pre>
+<ul>
+<li>
+<p>mode</p>
+</li>
+<li>
+<p>view mode</p>
+</li>
+<li>
+<p>read only mode</p>
+</li>
+<li>
+<p>default mode</p>
+</li>
+<li>
+<p>escape yy - yank (copy) the current line</p>
+</li>
+<li>
+<p>escape 2y - yank two lines</p>
+</li>
+<li>
+<p>escape dd - delete the current line (cut the line -&gt; keep the contents in memory)</p>
+</li>
+<li>
+<p>escape 2dd - delete two lines (current and the next one)</p>
+</li>
+<li>
+<p>escape p - paste the yanked (copied) line(s)</p>
+</li>
+<li>
+<p>escape u - undo the last step</p>
+</li>
+<li>
+<p>control + r - redo the step</p>
+</li>
+<li>
+<p>escape o - insert a new line below</p>
+</li>
+<li>
+<p>escape G - goto the last line of the document</p>
+</li>
+<li>
+<p>escape gg - goto the first line of the document</p>
+</li>
+<li>
+<p>escape { - goto the previous page</p>
+</li>
+<li>
+<p>escape } - goto the next page</p>
+</li>
+<li>
+<p>escape :set number - show the line numbers</p>
+</li>
+<li>
+<p>escape / - search a text in the current document</p>
+</li>
+<li>
+<p>escape n - search forward</p>
+</li>
+<li>
+<p>escape N - search backward</p>
+</li>
+<li>
+<p>escape w - move to next word</p>
+</li>
+<li>
+<p>escape b - move to the previous word</p>
+</li>
+<li>
+<p>escape $ - goto the last character of the current line</p>
+</li>
+<li>
+<p>escape ^ - goto the first character of the current line</p>
+</li>
+<li>
+<p>insert mode</p>
+</li>
+<li>
+<p>used to write the contents in the file</p>
+</li>
+<li>
+<p>escape + i - to start the insert mode</p>
+</li>
+<li>
+<p>escape :w - write the contents to the disk (save)</p>
+</li>
+<li>
+<p>escape :q - quit from the editor</p>
+</li>
+<li>
+<p>escape :wq - save the contents and quit</p>
+</li>
+<li>
+<p>escape :q! - forcelly quit without saving the contents</p>
+</li>
+<li>
+<p>visual mode</p>
+</li>
+<li>
+<p>escape v: start the visual mode</p>
+</li>
+<li>
+<p>select the portion to copy using left and right arrows and press y</p>
+</li>
+<li>
+<p>escape p - paste the yanked contents</p>
+</li>
+<li>
+<p>to open multiple files</p>
+</li>
+<li>
+<p>vim -O <file1>  <file2>: open the files vertically</p>
+</li>
+<li>
+<p>vim -o <file1>  <file2>: open the files horizontally</p>
+</li>
+<li>
+<p>control ww: used to switch between the files</p>
+</li>
+<li>
+<p>to configure vim with global settings</p>
+</li>
+<li>
+<p>save the settings in ~/.vimrc file</p>
+</li>
+<li>
+<p>~: home directory of currently logged in use</p>
+</li>
+<li>
+<p>file/directory which starts with . is a hidden file/directory</p>
+</li>
+<li>
+<p>set number -&gt; enable line numbers</p>
+</li>
+<li>
+<p>set tabstop -&gt; set the tab size</p>
+</li>
+<li>
+<p>set expandtab -&gt; convert the tab to space</p>
+</li>
+</ul>
+<h1 id="bash-scriptings">bash scriptings</h1>
+<ul>
+<li>script which contains the list of commands which can be executed by bash</li>
+</ul>
+<h1 id="common-commands">common commands</h1>
+<ul>
+<li>
+<p>hostnamectl: get information about the host</p>
+</li>
+<li>
+<p>curl: console url (browsing website on console)</p>
+</li>
+<li>
+<p>ifconfig: to get the ip related information</p>
+</li>
+<li>
+<p>ip: used to get the ip related information</p>
+</li>
+<li>
+<p>ip address show</p>
+</li>
+<li>
+<p>firewall-cmd: used to deal with firewall settings</p>
+</li>
+</ul>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="git">Git</h1>
+<h2 id="installation">Installation</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># update the apt repo</span>
+
+&gt; sudo apt-get update
+
+
+<span class="hljs-comment"># install git</span>
+
+&gt; sudo apt-get install git
+
+<span class="hljs-comment"># on windows</span>
+
+<span class="hljs-comment"># https://git-scm.com/downloads/win</span>
+</div></code></pre>
+<h2 id="first-time-configuration">First time configuration</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># set the user name</span>
+
+&gt; git config --global user.name <span class="hljs-string">"Amit"</span>
+  
+
+<span class="hljs-comment"># set the email for the user</span>
+
+&gt; git config --global user.email <span class="hljs-string">"pythoncpp@gmail.com"</span>
+
+</div></code></pre>
+<h2 id="basic-workflow">Basic workflow</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># initialize a repository</span>
+
+&gt; git init
+
+
+<span class="hljs-comment"># get the status of working directory</span>
+
+&gt; git status
+
+
+<span class="hljs-comment"># get the status of working directory in one line (short status)</span>
+
+&gt; git status -s
+
+
+<span class="hljs-comment"># statuses</span>
+
+<span class="hljs-comment"># first letter: status of a file with respect to the staging area</span>
+
+<span class="hljs-comment"># second letter: status of a file with respect to the working directory</span>
+
+<span class="hljs-comment"># ??: the file is not yet committed in the repository</span>
+
+<span class="hljs-comment"># A : the file is present in the staging area and will be added to the repository when committed</span>
+
+<span class="hljs-comment"># M: the file is modified and is present in the working directory</span>
+
+<span class="hljs-comment"># M : the file is modified and is added to the staging area</span>
+
+<span class="hljs-comment"># UU: the file has got at least one conflict</span>
+
+
+<span class="hljs-comment"># conflict</span>
+
+<span class="hljs-comment"># the file is modified by both the branches on the same line</span>
+
+<span class="hljs-comment"># in which scenario, git can not handle merging the changes</span>
+
+
+<span class="hljs-comment"># add the changes to the staging area</span>
+
+<span class="hljs-comment"># git add &lt;file(s) with changes&gt;</span>
+
+<span class="hljs-comment"># git add . : add all the files which are changed in the current directory</span>
+
+<span class="hljs-comment"># &gt; git ady myfile</span>
+
+&gt; git add .
+  
+
+<span class="hljs-comment"># commit the changes</span>
+
+<span class="hljs-comment"># &gt; git commit -m &lt;message&gt;</span>
+
+&gt; git commit -m <span class="hljs-string">"first commit"</span>
+
+  
+
+<span class="hljs-comment"># get the logs</span>
+
+&gt; git <span class="hljs-built_in">log</span>
+
+<span class="hljs-comment"># get the logs</span>
+
+<span class="hljs-comment"># --oneline: shows only one line log info</span>
+
+<span class="hljs-comment"># --graph: render the commit graph</span>
+
+<span class="hljs-comment"># --color: enable color while rendering the commit graph</span>
+
+&gt; git <span class="hljs-built_in">log</span> --oneline --graph --color
+
+  
+
+<span class="hljs-comment"># get the difference between the current and previous version of all updated files</span>
+
+<span class="hljs-comment"># +: the line is added to the file</span>
+
+<span class="hljs-comment"># -: the file is deleted from the file</span>
+
+&gt; git diff
+
+
+
+<span class="hljs-comment"># get the difference between the current and previous version of selected file</span>
+
+<span class="hljs-comment"># &gt; git diff &lt;file name&gt;</span>
+
+&gt; git diff myfile
+
+
+<span class="hljs-comment"># replace the last version with current version</span>
+
+<span class="hljs-comment"># &gt; git checkout &lt;filename&gt;</span>
+
+&gt; git checkout myfile
+
+<span class="hljs-comment"># remove all the changes from staging area and move them to the working directory</span>
+
+<span class="hljs-comment"># this command will not remove the changes, but only move from staging to working directory</span>
+
+&gt; git reset
+
+<span class="hljs-comment"># hard reset</span>
+
+<span class="hljs-comment"># - all the changes (from working directory and staging area) will be removed</span>
+
+<span class="hljs-comment"># - once removed there is no way to get them back</span>
+
+<span class="hljs-comment"># note: please execute this command on your own risk</span>
+
+&gt; git reset --hard
+
+</div></code></pre>
+<h2 id="git-internals">Git internals</h2>
+<ul>
+<li>
+<p>git init command creates a repository (directory named .git)</p>
+</li>
+<li>
+<p>.git directory contains</p>
+</li>
+<li>
+<p>HEAD</p>
+</li>
+<li>
+<p>file which has an entry of current branch</p>
+</li>
+<li>
+<p>branches</p>
+</li>
+<li>
+<p>config</p>
+</li>
+<li>
+<p>file contains the local repository configuration</p>
+</li>
+<li>
+<p>the configuration here is restricted only for the current repository</p>
+</li>
+<li>
+<p>description</p>
+</li>
+<li>
+<p>description about the repository</p>
+</li>
+<li>
+<p>hooks</p>
+</li>
+<li>
+<p>contains the scripts to be executed on different events</p>
+</li>
+<li>
+<p>the scripts can be written in any language or even shell scripts</p>
+</li>
+<li>
+<p>info</p>
+</li>
+<li>
+<p>objects</p>
+</li>
+<li>
+<p>object file stores the encrypted metadata (file contents or commit info etc)</p>
+</li>
+<li>
+<p>every object (file) has a unique identifier (40 bytes)</p>
+</li>
+<li>
+<p>out of 40 bytes</p>
+</li>
+<li>
+<p>first 2 bytes are used to create a directory</p>
+</li>
+<li>
+<p>remaining 38 bytes are used to create a file to store the contents of a file</p>
+</li>
+<li>
+<p>git used SHA algorithm to get the hash of the object</p>
+</li>
+<li>
+<p>types</p>
+</li>
+<li>
+<p>blob</p>
+</li>
+<li>
+<p>object file which stores the contents of a file in encrypted format</p>
+</li>
+<li>
+<p>gets created per file</p>
+</li>
+<li>
+<p>tree</p>
+</li>
+<li>
+<p>object file which contains the mappings of blob object files with their respective file names</p>
+</li>
+<li>
+<p>object gets create per directory</p>
+</li>
+<li>
+<p>commit</p>
+</li>
+<li>
+<p>object file which stores the commit information</p>
+</li>
+<li>
+<p>contains</p>
+</li>
+<li>
+<p>author details</p>
+</li>
+<li>
+<p>committer details</p>
+</li>
+<li>
+<p>unix timestamp</p>
+</li>
+<li>
+<p>commit message</p>
+</li>
+<li>
+<p>parent object id</p>
+</li>
+<li>
+<p>root commit object</p>
+</li>
+<li>
+<p>this type of commit object will get created only once (first time)</p>
+</li>
+<li>
+<p>this commit object does not contain the parent object id</p>
+</li>
+<li>
+<p>refs</p>
+</li>
+</ul>
+<h3 id="git-internals-working">GIT INTERNALS WORKING</h3>
+<p><img src="images/git.png" alt="alt text"></p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment"># find the type of the object</span>
+
+<span class="hljs-comment"># -t: type of an object</span>
+
+<span class="hljs-comment"># &gt; git cat-file -t &lt;object id&gt;</span>
+
+<span class="hljs-comment"># get the readable contents of an object</span>
+
+<span class="hljs-comment"># -p: pretty print the contents</span>
+
+<span class="hljs-comment"># &gt; git cat-file -p &lt;object id&gt;</span>
+
+<span class="hljs-comment"># delete all unwanted objects and create pack files</span>
+<span class="hljs-comment"># gc: garbage collection</span>
+&gt; git gc
+
+<span class="hljs-comment"># watch the progress</span>
+
+&gt; <span class="hljs-built_in">cd</span> .git
+&gt; rm hooks/*
+&gt; watch -n 1 tree .
+</div></code></pre>
+<h2 id="branches">Branches</h2>
+<ul>
+<li>is simply reference to a latest commit object</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of branches</span>
+&gt; git branch
+
+<span class="hljs-comment"># create a new branch</span>
+<span class="hljs-comment"># the new branch will have same commit id as that of the current branch</span>
+
+<span class="hljs-comment"># &gt; git branch &lt;branch name&gt;</span>
+&gt; git branch branch1
+  
+<span class="hljs-comment"># switch to other branch</span>
+<span class="hljs-comment"># &gt; git checkout &lt;branch name&gt;</span>
+&gt; git checkout branch1
+  
+
+<span class="hljs-comment"># create a new branch and checkout immediately</span>
+<span class="hljs-comment"># &gt; git checkout -b &lt;branch name&gt;</span>
+&gt; git checkout -b branch2
+
+<span class="hljs-comment"># merge the changes from one branch to another branch</span>
+<span class="hljs-comment"># note: first checkout the branch in which you want to merge another branch</span>
+&gt; git checkout master
+
+<span class="hljs-comment"># &gt; git merge &lt;branch name&gt;</span>
+&gt; git merge branch1
+
+<span class="hljs-comment"># squash merge</span>
+<span class="hljs-comment"># - collect all the commit objects of second branch and turn them into a single object</span>
+
+<span class="hljs-comment"># - then the single commit object gets merged in the source branch</span>
+<span class="hljs-comment"># - this will help git to reduce the commit history/tree/graph</span>
+  
+
+<span class="hljs-comment"># delete a branch</span>
+<span class="hljs-comment"># &gt; git branch -d &lt;branch name&gt;</span>
+&gt; git branch -d branch1
+
+<span class="hljs-comment"># rename a branch</span>
+<span class="hljs-comment"># the current branch will be renamed</span>
+<span class="hljs-comment"># &gt; git branch -M &lt;new branch&gt;</span>
+&gt; git branch -M main
+</div></code></pre>
+<h2 id="stash">Stash</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of changes parked in the stash area</span>
+&gt; git stash list
+
+<span class="hljs-comment"># stash the changes</span>
+<span class="hljs-comment"># move the changes from working directory to stash area</span>
+<span class="hljs-comment"># &gt; git stash</span>
+<span class="hljs-comment"># &gt; git stash save &lt;message&gt;</span>
+&gt; git stash save <span class="hljs-string">"algo1"</span>
+
+<span class="hljs-comment"># get the details of a stash entry</span>
+<span class="hljs-comment"># &gt; git stash show &lt;stash id&gt;</span>
+&gt; git stash show stash@{0}
+
+<span class="hljs-comment"># apply the changes from stash area to working directory</span>
+<span class="hljs-comment"># &gt; git stash apply &lt;stash id&gt;</span>
+&gt; git stash apply stash@{1}
+
+<span class="hljs-comment"># delete the stash object</span>
+<span class="hljs-comment"># &gt; git stash drop &lt;stash id&gt;</span>
+&gt; git stash drop stash@{0}
+
+<span class="hljs-comment"># apply and drop the last commit from the stash area</span>
+<span class="hljs-comment"># git stash pop = git stash apply + git stash drop</span>
+&gt; git stash pop
+</div></code></pre>
+<h2 id="git-remote">git remote</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the remote repo details</span>
+&gt; git remote -v
+
+<span class="hljs-comment"># connect the local repo to the remote one</span>
+<span class="hljs-comment"># &gt; git remote add &lt;alias&gt; &lt;remote repo url&gt;</span>
+
+<span class="hljs-comment"># remove the remote from repository</span>
+<span class="hljs-comment"># &gt; git remote remove &lt;alias&gt;</span>
+&gt; git remote remove origin
+
+<span class="hljs-comment"># get the repository contents for the first time</span>
+<span class="hljs-comment"># &gt; git clone &lt;git repository url&gt;</span>
+&gt; git <span class="hljs-built_in">clone</span> https://github.com/pythoncpp/application1.git
+
+<span class="hljs-comment"># generate ssh keys (private and public)</span>
+<span class="hljs-comment"># public key: used for encryption</span>
+<span class="hljs-comment"># private key: used for decryption</span>
+<span class="hljs-comment"># this command will create keys under ~/.ssh directory</span>
+&gt; ssh-keygen
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="aws-ec2--install-apache">AWS EC2 : Install apache</h1>
+<pre class="hljs"><code><div><span class="hljs-comment"># connect to the ec2 instance</span>
+
+<span class="hljs-comment"># usernames</span>
+
+<span class="hljs-comment"># - ubuntu: ubuntu server AMI</span>
+<span class="hljs-comment"># - ec2-user: Amazon Linux (Centos based image)</span>
+<span class="hljs-comment"># - Administrator: Windows</span>
+<span class="hljs-comment"># &gt; ssh -i &lt;pem file path&gt; &lt;username&gt;@&lt;public ip of ec2 instance&gt;</span>
+
+
+<span class="hljs-comment"># update the apt cache</span>
+&gt; sudo apt-get update
+
+
+<span class="hljs-comment"># install apache</span>
+&gt; sudo apt-get install apache2
+
+
+<span class="hljs-comment"># check the status of the apache2 service</span>
+&gt; sudo systemctl status apache2
+
+
+<span class="hljs-comment"># start the apache service</span>
+&gt; sudo systemctl start apache2
+
+<span class="hljs-comment"># enable the service to run after reboot automatically</span>
+&gt; sudo systemctl <span class="hljs-built_in">enable</span> apache2
+
+
+<span class="hljs-comment"># upload the file(s) from your machine to the ec2 instance</span>
+<span class="hljs-comment"># &gt; scp -i &lt;pem file path&gt; &lt;source file&gt; &lt;user&gt;@&lt;public ip address&gt;:&lt;destination path&gt;</span>
+&gt; scp -i ~/Downloads/key-demops.pem index.html ubuntu@18.206.171.237:/tmp/
+
+<span class="hljs-comment"># copy the file to the apache's web root directory</span>
+
+&gt; sudo mv /tmp/index.html /var/www/html/
+</div></code></pre>
+<h3 id="aws-vpc-architecture">AWS VPC ARCHITECTURE</h3>
+<p><img src="images/AWS_VPC.png" alt="alt text"></p>
+<hr>
+<p><img src="images/AWS_VPC_2.png" alt="alt text"></p>
+<hr>
+<h3 id="aws-vpc-peering">AWS VPC PEERING</h3>
+<p><img src="images/VPCPeering.png" alt="alt text"></p>
+<hr>
+<h3 id="aws-elastic-load-balancer">AWS ELASTIC LOAD BALANCER</h3>
+<p><img src="images/AWS_ElasticLoadBalancer.png" alt="alt text"></p>
+<hr>
+<h3 id="aws-s3">AWS S3</h3>
+<p><img src="images/AWS_S3.png" alt="alt text"></p>
+<hr>
+<h3 id="jumpbox-architecture">JUMPBOX ARCHITECTURE</h3>
+<p><img src="images/JUMPBOX.png" alt="alt text"></p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="terraform">Terraform</h1>
+<h2 id="installation-on-ubuntu">Installation on Ubuntu</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># download the key to access hashicorp apt source</span>
+
+&gt; wget -O - https://apt.releases.hashicorp.com/gpg |  sudo  gpg  --dearmor  -o  /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+
+<span class="hljs-comment"># add the hashicorp apt source</span>
+&gt; <span class="hljs-built_in">echo</span> <span class="hljs-string">"deb [arch=<span class="hljs-variable">$(dpkg  --print-architecture)</span> signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com <span class="hljs-variable">$(lsb_release  -cs)</span> main"</span>  |  sudo  tee  /etc/apt/sources.list.d/hashicorp.list
+
+<span class="hljs-comment"># update the apt cache</span>
+&gt; sudo apt update
+
+<span class="hljs-comment"># install terraform</span>
+&gt; sudo apt install terraform
+
+<span class="hljs-comment"># check if terraform is installed</span>
+&gt; terraform version
+</div></code></pre>
+<h2 id="installation-on-macos">installation on macOS</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># add brew source</span>
+&gt; brew tap hashicorp/tap
+
+<span class="hljs-comment"># install terraform</span>
+&gt; brew install hashicorp/tap/terraform
+</div></code></pre>
+<h2 id="configure-aws-cli">Configure AWS CLI</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># open the bashrc file</span>
+&gt; vim ~/.bashrc
+
+<span class="hljs-comment"># add the following configuration</span>
+&gt;  <span class="hljs-built_in">export</span>  AWS_ACCESS_KEY_ID=
+&gt;  <span class="hljs-built_in">export</span>  AWS_SECRET_ACCESS_KEY=
+&gt;  <span class="hljs-built_in">export</span>  AWS_DEFAULT_REGION=
+
+<span class="hljs-comment"># North Virginia - us-east-1</span>
+<span class="hljs-comment"># Mumbai - ap-south-1</span>
+
+<span class="hljs-comment"># load the settings in the same terminal</span>
+&gt; <span class="hljs-built_in">source</span> ~/.bashrc
+
+<span class="hljs-comment"># confirm if the access key is properly configured</span>
+&gt; <span class="hljs-built_in">echo</span> <span class="hljs-variable">$AWS_ACCESS_KEY_ID</span>
+&gt; <span class="hljs-built_in">echo</span> <span class="hljs-variable">$AWS_SECRET_ACCESS_KEY</span>
+</div></code></pre>
+<h2 id="configure-the-vs">Configure the VS</h2>
+<pre class="hljs"><code><div>https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
+</div></code></pre>
+<h2 id="test-the-settings">Test the settings</h2>
+<pre class="hljs"><code><div>terraform {
+
+	required_version = &quot;&gt;= 1.0.0&quot;
+
+	required_providers {
+
+		aws={
+
+			source = &quot;hashicorp/aws&quot;
+
+			version = &quot;5.82.2&quot;
+
+		}
+
+	}
+
+}
+
+  
+
+provider &quot;aws&quot; {
+
+	region = &quot;us-east-1&quot;
+
+}
+
+  
+
+resource &quot;aws_instance&quot; &quot;web-server&quot; {
+
+	ami = &quot;ami-0e2c8caa4b6378d8c&quot;
+
+	instance_type = &quot;t2.micro&quot;
+
+	key_name = &quot;key-demops&quot;
+
+	tags = {
+
+	Name = &quot;Web Server&quot;
+
+	}
+
+}
+
+</div></code></pre>
+<h2 id="perform-the-operations">perform the operations</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># download required providers</span>
+&gt; terraform init
+
+<span class="hljs-comment"># check if the configuration is valid</span>
+&gt; terraform validate
+
+<span class="hljs-comment"># get the plan of execution</span>
+&gt; terraform plan
+
+
+<span class="hljs-comment"># create the infra using terraform</span>
+
+&gt; terraform apply
+
+<span class="hljs-comment"># refresh the state of resources</span>
+
+&gt; terraform refresh
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="ansible">Ansible</h1>
+<h2 id="vagrant-setup">vagrant setup</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># configure vagrant machine</span>
+&gt; vagrant init &lt;box name&gt;
+
+<span class="hljs-comment"># create the machine</span>
+&gt; vagrant up
+
+<span class="hljs-comment"># check the status</span>
+&gt; vagrant status
+
+<span class="hljs-comment"># get the global status</span>
+&gt; vagrant global-status
+
+<span class="hljs-comment"># shut down the machine</span>
+&gt; vagrant halt
+</div></code></pre>
+<pre class="hljs"><code><div>Vagrant.configure(<span class="hljs-string">"2"</span>) <span class="hljs-keyword">do</span> <span class="hljs-params">|config|</span>
+	config.vm.box  =  <span class="hljs-string">"ubuntu"</span>
+	config.vm.provider  <span class="hljs-string">"vmware_desktop"</span>  <span class="hljs-keyword">do</span> <span class="hljs-params">|v|</span>
+	v.linked_clone  =  <span class="hljs-literal">false</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment"># define the controller node</span>
+	config.vm.define  <span class="hljs-string">"controller"</span>  <span class="hljs-keyword">do</span> <span class="hljs-params">|controller|</span>
+		<span class="hljs-comment"># change the hostname</span>
+		controller.vm.hostname  =  <span class="hljs-string">"controller"</span>
+	<span class="hljs-keyword">end</span>	
+
+<span class="hljs-comment"># define the manged node</span>
+	config.vm.define  <span class="hljs-string">"m1"</span>  <span class="hljs-keyword">do</span> <span class="hljs-params">|m1|</span>
+		<span class="hljs-comment"># change the hostname</span>
+		m1.vm.hostname  =  <span class="hljs-string">"node"</span>
+	<span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<h2 id="installing-ansible">installing ansible</h2>
+<ul>
+<li>note: please make sure that you are inside the controller node</li>
+</ul>
+<blockquote>
+<p>vagrant ssh controller</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-comment"># update the apt cache</span>
+&gt; sudo apt-get update
+
+<span class="hljs-comment"># install the pre-requisites</span>
+&gt; sudo apt install software-properties-common
+
+<span class="hljs-comment"># add the ansible apt source</span>
+&gt; sudo add-apt-repository --yes --update ppa:ansible/ansible
+
+
+<span class="hljs-comment"># install ansible</span>
+&gt; sudo apt install ansible
+
+<span class="hljs-comment"># check if ansible is installed</span>
+&gt; ansible --version
+</div></code></pre>
+<h2 id="configure-the-managed-node">configure the managed node</h2>
+<ul>
+<li>note: make sure that you are connected to the managed node</li>
+</ul>
+<pre class="hljs"><code><div>&gt; vagrant ssh m1
+
+<span class="hljs-comment"># change the hostname to controller</span>
+&gt; sudo vim /etc/hostname
+
+<span class="hljs-comment"># restart the machine</span>
+&gt; sudo reboot
+</div></code></pre>
+<h2 id="configure-the-vim">configure the vim</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># configure the vim using ~/.vimrc</span>
+&gt; vim ~/.vimrc
+
+<span class="hljs-comment"># convert the tab into spaces</span>
+<span class="hljs-built_in">set</span>  expandtab
+
+<span class="hljs-comment"># one tab will be converted to two spaces</span>
+<span class="hljs-built_in">set</span>  tabstop=2
+
+<span class="hljs-comment"># enable the line numbers</span>
+<span class="hljs-built_in">set</span>  number
+</div></code></pre>
+<h2 id="create-the-inventory">create the inventory</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># create a directory to hold the inventory</span>
+&gt; mkdir myplaybooks
+
+<span class="hljs-comment"># create an inventory file for listing all the nodes</span>
+&gt; vim inventory.ini
+
+<span class="hljs-comment"># [hosts] &lt;- group name</span>
+<span class="hljs-comment"># 172.16.140.145 &lt;- managed node ip address</span>
+<span class="hljs-comment"># 172.16.140.145 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant &lt;- managed node ip address</span>
+
+<span class="hljs-comment"># check the connectivity with the nodes</span>
+<span class="hljs-comment"># hosts: group name</span>
+<span class="hljs-comment"># ping: module (command which will check the connectivity)</span>
+<span class="hljs-comment"># inventory.ini: inventory file</span>
+&gt; ansible hosts -m ping -i inventory.ini
+</div></code></pre>
+<h2 id="playbooks">playbooks</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># execute a playbook</span>
+&gt; ansible-playbook playbook.yaml -i inventory.ini
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="docker">Docker</h1>
+<h2 id="installation">installation</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># update the apt cache</span>
+
+&gt; sudo apt-get update
+
+<span class="hljs-comment"># install pre-requisites</span>
+&gt; sudo apt-get install ca-certificates curl
+  
+<span class="hljs-comment"># create keyrings</span>
+&gt; sudo install -m 0755 -d /etc/apt/keyrings
+
+<span class="hljs-comment"># download the gpg key for downloading the docker tool</span>
+&gt; sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+&gt; sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+<span class="hljs-comment"># Add the repository to Apt sources:</span>
+
+&gt; <span class="hljs-built_in">echo</span> \
+
+<span class="hljs-string">"deb [arch=<span class="hljs-variable">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+
+<span class="hljs-variable">$(.  /etc/os-release  &amp;&amp;  echo  "$VERSION_CODENAME")</span> stable"</span>  |  \
+
+sudo  tee  /etc/apt/sources.list.d/docker.list  &gt;  /dev/null
+
+
+<span class="hljs-comment"># update the apt cache</span>
+&gt; sudo apt-get update
+
+
+<span class="hljs-comment"># install docker</span>
+&gt; sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+<span class="hljs-comment"># check if the docker service is installed</span>
+&gt; sudo systemctl status docker
+
+
+<span class="hljs-comment"># start the docker server</span>
+&gt; sudo systemctl start docker
+
+<span class="hljs-comment"># enable the docker server</span>
+&gt; sudo systemctl <span class="hljs-built_in">enable</span> docker
+
+<span class="hljs-comment"># add the current user to the docker group</span>
+&gt; sudo usermod -aG docker <span class="hljs-variable">$USER</span>
+
+<span class="hljs-comment"># restart the machine</span>
+<span class="hljs-comment"># check if docker is installed</span>
+&gt; docker version
+</div></code></pre>
+<h2 id="image-commands">image commands</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of images available on the machine</span>
+&gt; docker image ls
+
+<span class="hljs-comment"># download or pull the image on the machine</span>
+<span class="hljs-comment"># &gt; docker image pull &lt;image name&gt;</span>
+<span class="hljs-comment"># the image gets stored in /var/lib/docker/images directory</span>
+&gt; docker image pull hello-world
+
+
+<span class="hljs-comment"># remove image from machine</span>
+<span class="hljs-comment"># &gt; docker image rm &lt;image name&gt;</span>
+&gt; docker image rm hello-world
+
+<span class="hljs-comment"># get information about an image</span>
+&gt; docker image inspect hello-world
+</div></code></pre>
+<h2 id="container-commands">container commands</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of running containers</span>
+&gt; docker container ls
+
+
+<span class="hljs-comment"># get the list of containers in all states (created, updated)</span>
+&gt; docker container ls -a
+
+<span class="hljs-comment"># create a container</span>
+&gt; docker container create hello-world
+
+<span class="hljs-comment"># get the details of selected container</span>
+<span class="hljs-comment"># &gt; docker container inspect &lt;container name or container id&gt;</span>
+&gt; docker container inspect c1c
+
+
+<span class="hljs-comment"># start already created container</span>
+&gt; docker container start &lt;container id or name&gt;
+
+
+<span class="hljs-comment"># stop a running container</span>
+&gt; docker container stop &lt;container id or name&gt;
+
+<span class="hljs-comment"># remove a stopped container</span>
+&gt; docker container rm &lt;container id or name&gt;
+
+
+<span class="hljs-comment"># remove a running container</span>
+&gt; docker container rm --force &lt;container id or name&gt;
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># run the container</span>
+<span class="hljs-comment"># create and start the container</span>
+
+<span class="hljs-comment"># this command will run a new container every time</span>
+&gt; docker container run &lt;image name or id&gt;
+
+<span class="hljs-comment"># set the name while running the application</span>
+<span class="hljs-comment"># this container will run by default in attached mode</span>
+&gt; docker container run --name &lt;name&gt;  &lt;image name or id&gt;
+
+</div></code></pre>
+<hr>
+<h3 id="attached-mode-architecture">Attached Mode Architecture</h3>
+<p><img src="images/Docker_attached_mode.png" alt="alt text"></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># run the container in detached mode (background)</span>
+<span class="hljs-comment"># -d: detached mode</span>
+<span class="hljs-comment"># -i: enable the docker interactive mode</span>
+<span class="hljs-comment"># -t: enable the teletype terminal for the docker</span>
+&gt; docker container run --name &lt;name&gt; -itd &lt;image name or id&gt;
+
+<span class="hljs-comment"># enable port forwarding for a container</span>
+<span class="hljs-comment"># source port</span>
+<span class="hljs-comment"># - port allocated on OS</span>
+<span class="hljs-comment"># - can be any available port</span>
+<span class="hljs-comment"># container port</span>
+<span class="hljs-comment"># - port exposed by the container</span>
+<span class="hljs-comment"># &gt; docker container run --name &lt;name&gt; -itd -p &lt;source port&gt;:&lt;container port&gt; &lt;image name or id&gt;</span>
+&gt; docker container run --name myhttpd -itd -p 8080:80 httpd
+</div></code></pre>
+<hr>
+<h3 id="port-forwarding-architecture">Port forwarding Architecture</h3>
+<p><img src="images/Port_Forwarding.png" alt="alt text"></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># run mysql in a container</span>
+&gt; docker container run --name mysql -itd -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root  mysql
+
+<span class="hljs-comment"># execute a command inside the container</span>
+<span class="hljs-comment"># &gt; docker container exec &lt;container name or id&gt; &lt;command&gt;</span>
+&gt; docker container <span class="hljs-built_in">exec</span> myhttpd date
+
+<span class="hljs-comment"># get the terminal from the container</span>
+<span class="hljs-comment"># &gt; docker container exec -it &lt;container name or id&gt; &lt;shell&gt;</span>
+&gt; docker container <span class="hljs-built_in">exec</span> -it myhttpd bash
+
+<span class="hljs-comment"># get the logs generated by the container</span>
+<span class="hljs-comment"># &gt; docker container logs &lt;container name or id&gt;</span>
+&gt; docker container logs mysql
+</div></code></pre>
+<h2 id="volume">volume</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of volumes</span>
+&gt; docker volume ls
+
+<span class="hljs-comment"># remove the unused volumes</span>
+&gt; docker volume prune
+
+<span class="hljs-comment"># create a volume</span>
+<span class="hljs-comment"># - this will create a new directory name myvolume under /var/lib/docker/volumes</span>
+&gt; docker volume create myvolume
+
+<span class="hljs-comment"># find more information about a volume</span>
+&gt; docker volume inspect &lt;volume name&gt;
+
+<span class="hljs-comment"># remove a volume</span>
+&gt; docker volume rm &lt;volume name&gt;
+
+
+<span class="hljs-comment"># attach volume to a container</span>
+<span class="hljs-comment"># &gt; docker container run --name &lt;name&gt; -itd -p &lt;source port&gt;:&lt;container port&gt; -v &lt;volume name&gt;:&lt;mount point inside the container&gt; &lt;image name&gt;</span>
+&gt; docker container run --name mysql -itd -p 3306:3306 -v myvolume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root  mysql
+</div></code></pre>
+<h3 id="volume-architecture">Volume Architecture</h3>
+<p><img src="images/Volumes.png" alt="alt text"></p>
+<h2 id="images">images</h2>
+<ul>
+<li>
+<p>customize the docker image to run your application by using Dockerfile</p>
+</li>
+<li>
+<p>Dockerfile contains instructions/commands to create an image</p>
+</li>
+<li>
+<p>commands</p>
+</li>
+<li>
+<p>FROM</p>
+</li>
+<li>
+<p>used to select the base image</p>
+</li>
+<li>
+<p>COPY</p>
+</li>
+<li>
+<p>used to copy file/directory from local machine to the image</p>
+</li>
+<li>
+<p>syntax: COPY <local path>  <image path></p>
+</li>
+<li>
+<p>e.g. COPY index.html /usr/local/apache2/htdocs/ will copy the index.html from local machine to the /usr/local/apache2/htdocs/ of image</p>
+</li>
+<li>
+<p>WORKDIR</p>
+</li>
+<li>
+<p>used to set the working directory</p>
+</li>
+<li>
+<p>if the directory does not exist, the image creates this new directory</p>
+</li>
+<li>
+<p>RUN</p>
+</li>
+<li>
+<p>used to run a command while building an image</p>
+</li>
+<li>
+<p>installing dependencies while building an image</p>
+</li>
+<li>
+<p>CMD</p>
+</li>
+<li>
+<p>used to run the command when container starts</p>
+</li>
+<li>
+<p>this must be the last command of your Dockerfile</p>
+</li>
+<li>
+<p>EXPOSE</p>
+</li>
+<li>
+<p>used to expose a port for consumer to access the application running inside the container</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>
+<span class="hljs-comment"># build a custom image</span>
+<span class="hljs-comment"># &gt; docker image build -t &lt;image name&gt;:&lt;image tag&gt; &lt;context&gt;</span>
+&gt; docker image build -t myimage .
+
+<span class="hljs-comment"># login with docker credentials</span>
+&gt; docker login -u &lt;user name&gt;
+
+<span class="hljs-comment"># create a new tag for your image to push to the docker hub</span>
+<span class="hljs-comment"># &gt; docker image tag &lt;existing image&gt; &lt;docker username&gt;/&lt;image name&gt;</span>
+&gt; docker image tag myserver amitksunbeam/myserver
+
+<span class="hljs-comment"># push the image to the docker hub</span>
+<span class="hljs-comment"># &gt; docker image push &lt;image name&gt;</span>
+&gt; docker image push amitksunbeam/myserver
+
+<span class="hljs-comment"># to build the image for other CPU architecture use buildx command</span>
+&gt; docker buildx build --platform &lt;platform&gt;  .
+</div></code></pre>
+<h2 id="swarm">swarm</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># check if the node is a part of any swarm</span>
+&gt; docker system info |  grep  Swarm
+
+<span class="hljs-comment"># start initializing the swarm</span>
+&gt; docker swarm init
+
+<span class="hljs-comment"># remove the current node from the cluster</span>
+&gt; docker swarm leave --force
+
+<span class="hljs-comment"># generate a token to add a worker</span>
+&gt; docker swarm join-token worker
+</div></code></pre>
+<h2 id="node">node</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of nodes</span>
+&gt; docker node ls
+
+<span class="hljs-comment"># get the details of selected node</span>
+&gt; docker node inspect &lt;node id&gt;
+
+<span class="hljs-comment"># remove a node from cluster</span>
+&gt; docker node rm &lt;node id&gt;
+
+<span class="hljs-comment"># promote a worker to work as manager</span>
+&gt; docker node promote &lt;worker node id&gt;
+
+
+<span class="hljs-comment"># demote a manager to work as worker</span>
+&gt; docker node demote &lt;manager node id&gt;
+</div></code></pre>
+<h2 id="service">service</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of services</span>
+&gt; docker service ls
+
+<span class="hljs-comment"># create a service</span>
+
+<span class="hljs-comment"># &gt; docker service create --name &lt;service name&gt; &lt;image name&gt;</span>
+&gt; docker service create --name myservice httpd
+
+<span class="hljs-comment"># create a service with required desired count</span>
+<span class="hljs-comment"># &gt; docker service create --replicas &lt;desired count&gt; --name myservice httpd</span>
+&gt; docker service create --replicas 5 --name httpd -p 8080:80 httpd
+
+<span class="hljs-comment"># get the list of containers created by the service</span>
+&gt; docker service ps &lt;service name&gt;
+
+<span class="hljs-comment"># remove a service</span>
+&gt; docker service rm &lt;service name&gt;
+
+<span class="hljs-comment"># to watch the current state of service</span>
+&gt; watch -n 1 docker container ls
+
+<span class="hljs-comment"># horizontally scale the service</span>
+<span class="hljs-comment"># &gt; docker service scale &lt;service name&gt;=&lt;new desired count&gt;</span>
+&gt; docker service scale myservice=10
+</div></code></pre>
+<h2 id="docker-compose">docker compose</h2>
+<ul>
+<li>
+<p>used in development to deal with multiple microservices at a time</p>
+</li>
+<li>
+<p>in-built in the docker engine</p>
+</li>
+<li>
+<p>can be done using yaml configuration</p>
+</li>
+<li>
+<p>does not support Swarm</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of services managed by docker compose</span>
+&gt; docker compose ls
+
+<span class="hljs-comment"># create images for all the services mentioned in the docker-compose file</span>
+&gt; docker compose build
+
+<span class="hljs-comment"># create containers for all the services</span>
+&gt; docker compose up -d
+
+<span class="hljs-comment"># delete all the containers for the services</span>
+&gt; docker compose down
+
+<span class="hljs-comment"># delete all the images along with the containers for the services</span>
+&gt; docker compose down --rmi all
+</div></code></pre>
+<h2 id="docker-stack">docker stack</h2>
+<ul>
+<li>used to deal with multiple service with swarm</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of stacks</span>
+&gt; docker stack ls
+
+<span class="hljs-comment"># deploy or create a new stack</span>
+<span class="hljs-comment"># &gt; docker stack deploy --compose-file &lt;stack yaml file&gt; --detached=true &lt;stack name&gt;</span>
+&gt; docker stack deploy --compose-file docker-stack.yaml --detached=<span class="hljs-literal">true</span>  myapp
+
+<span class="hljs-comment"># remove a running stack</span>
+<span class="hljs-comment"># &gt; docker stack rm &lt;stack name&gt;</span>
+&gt; docker stack rm myapp
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="minikube">minikube</h1>
+<h2 id="download-and-configure-docker">download and configure docker</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># install pre-requisites</span>
+
+&gt; sudo apt-get update
+
+&gt; sudo apt-get install ca-certificates curl
+
+&gt; sudo install -m 0755 -d /etc/apt/keyrings
+
+&gt; sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+&gt; sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+
+<span class="hljs-comment"># Add the repository to Apt sources:</span>
+
+&gt; <span class="hljs-built_in">echo</span> \
+
+<span class="hljs-string">"deb [arch=<span class="hljs-variable">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+
+<span class="hljs-variable">$(.  /etc/os-release  &amp;&amp;  echo  "${UBUNTU_CODENAME:-$VERSION_CODENAME}")</span> stable"</span>  |  \
+
+sudo  tee  /etc/apt/sources.list.d/docker.list  &gt;  /dev/null
+&gt; sudo apt-get update
+
+<span class="hljs-comment"># install docker</span>
+&gt; sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+<span class="hljs-comment"># add current user to the docker group</span>
+&gt; sudo usermod -aG docker <span class="hljs-variable">$USER</span>
+<span class="hljs-comment"># restart or logout</span>
+</div></code></pre>
+<h2 id="download-minikube">download minikube</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># download</span>
+&gt; curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-arm64
+
+<span class="hljs-comment"># install minikube on arm-64</span>
+&gt; sudo install minikube-linux-arm64 /usr/<span class="hljs-built_in">local</span>/bin/minikube &amp;&amp; rm  minikube-linux-arm64
+</div></code></pre>
+<h2 id="minikube-commands">minikube commands</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># start the cluster</span>
+&gt; minikube start
+
+<span class="hljs-comment"># stop the cluster</span>
+&gt; minikube stop
+
+<span class="hljs-comment"># delete the cluster</span>
+&gt; minikube delete
+
+<span class="hljs-comment"># get the cluster status</span>
+&gt; minikube status
+
+<span class="hljs-comment"># add the following entry in your ~/.bashrc</span>
+&gt; <span class="hljs-built_in">alias</span>  kubectl=<span class="hljs-string">"minikube kubectl --"</span>
+&gt; <span class="hljs-built_in">source</span> ~/.bashrc
+
+<span class="hljs-comment"># ssh into the minikube virtual machine</span>
+&gt; minikube ssh
+
+<span class="hljs-comment"># get the dashboard</span>
+&gt; minikube dashboard
+
+<span class="hljs-comment"># get the ip address of the minikube node</span>
+&gt; minikube ip
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="kubernetes">Kubernetes</h1>
+<h2 id="installation">Installation</h2>
+<blockquote>
+<p>These commands to be fired on Master as well as all Nodes</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-built_in">set</span> -euxo pipefail
+
+<span class="hljs-comment"># declare variables</span>
+KUBERNETES_VERSION=<span class="hljs-string">"v1.31"</span>
+CRIO_VERSION=<span class="hljs-string">"v1.30"</span>
+
+<span class="hljs-comment"># disable swap</span>
+sudo swapoff -a
+
+<span class="hljs-comment"># Create the .conf file to load the modules at boot time</span>
+cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+<span class="hljs-comment"># Sysctl params required by setup, params persist across reboots</span>
+cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+<span class="hljs-comment"># Apply sysctl params without reboot</span>
+sudo sysctl --system
+
+<span class="hljs-comment"># Install CRI-O Runtime</span>
+sudo apt-get update -y
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg software-properties-common
+
+<span class="hljs-comment"># add CRI-O key and repository</span>
+curl -fsSL https://pkgs.k8s.io/addons:/cri-o:/stable:/<span class="hljs-variable">$CRIO_VERSION</span>/deb/Release.key |
+    sudo gpg --dearmor -o /etc/apt/keyrings/cri-o-apt-keyring.gpg
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/<span class="hljs-variable">$CRIO_VERSION</span>/deb/ /"</span> |
+    sudo tee /etc/apt/sources.list.d/cri-o.list
+
+<span class="hljs-comment"># update the cache and install CRI-O</span>
+sudo apt-get update -y
+sudo apt-get install -y cri-o
+
+<span class="hljs-comment"># start the CRI-O service</span>
+sudo systemctl daemon-reload
+sudo systemctl <span class="hljs-built_in">enable</span> crio --now
+sudo systemctl start crio.service
+
+<span class="hljs-comment"># add the kubernetes key and repository</span>
+curl -fsSL https://pkgs.k8s.io/core:/stable:/<span class="hljs-variable">$KUBERNETES_VERSION</span>/deb/Release.key |
+    sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/<span class="hljs-variable">$KUBERNETES_VERSION</span>/deb/ /"</span> |
+    sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+<span class="hljs-comment"># install kubelet, kubeadm, and kubectl latest version</span>
+sudo apt-get update -y
+sudo apt-get install -y kubelet kubectl kubeadm
+
+<span class="hljs-comment"># Prevent automatic updates for kubelet, kubeadm, and kubectl</span>
+sudo apt-mark hold kubelet kubeadm kubectl
+sudo apt-get update -y
+</div></code></pre>
+<blockquote>
+<p>After that these commands to be fired on master</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-comment"># Setup for Control Plane (Master) servers</span>
+
+NODENAME=$(hostname -s)
+POD_CIDR=<span class="hljs-string">"192.168.0.0/16"</span>
+
+<span class="hljs-comment"># Pull required images</span>
+sudo kubeadm config images pull
+
+<span class="hljs-comment"># get the private IP of the master node    </span>
+MASTER_PRIVATE_IP=$(ip addr show eth1 | awk <span class="hljs-string">'/inet / {print $2}'</span> | cut -d/ -f1)
+sudo kubeadm init --apiserver-advertise-address=<span class="hljs-string">"<span class="hljs-variable">$MASTER_PRIVATE_IP</span>"</span> --apiserver-cert-extra-sans=<span class="hljs-string">"<span class="hljs-variable">$MASTER_PRIVATE_IP</span>"</span> --pod-network-cidr=<span class="hljs-string">"<span class="hljs-variable">$POD_CIDR</span>"</span> --node-name <span class="hljs-string">"<span class="hljs-variable">$NODENAME</span>"</span> --ignore-preflight-errors Swap
+
+<span class="hljs-comment"># if this doesn't work set the ip of MASTER IP manually</span>
+
+<span class="hljs-comment"># MASTER_PRIVATE_IP=192.x.x.x</span>
+
+
+<span class="hljs-comment"># Configure kubeconfig</span>
+mkdir -p <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube
+sudo cp -i /etc/kubernetes/admin.conf <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube/config
+sudo chown <span class="hljs-string">"<span class="hljs-variable">$(id -u)</span>"</span>:<span class="hljs-string">"<span class="hljs-variable">$(id -g)</span>"</span> <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube/config
+
+<span class="hljs-comment"># Install Calico Network Plugin Network </span>
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+</div></code></pre>
+<h2 id="vim-configuration">vim configuration</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># add the following lines in ~/.vimrc</span>
+
+&gt; <span class="hljs-built_in">set</span> expandtab
+
+&gt; <span class="hljs-built_in">set</span> number
+
+&gt; <span class="hljs-built_in">set</span> tabstop=2
+</div></code></pre>
+<h2 id="nodes">nodes</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of nodes</span>
+&gt; kubectl get nodes
+
+<span class="hljs-comment"># get details of a selected node</span>
+&gt; kubectl describe node &lt;node name&gt;
+
+<span class="hljs-comment"># delete a node</span>
+&gt; kubectl delete node &lt;node name&gt;
+</div></code></pre>
+<h2 id="namespace">namespace</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of namespaces</span>
+
+&gt; kubectl get namespaces
+&gt; kubectl get namespaces
+&gt; kubectl get ns
+
+<span class="hljs-comment"># create a new namespace</span>
+<span class="hljs-comment"># &gt; kubectl create namespace &lt;namespace name&gt;</span>
+&gt; kubectl create namespace ns1
+
+<span class="hljs-comment"># delete a namespace</span>
+<span class="hljs-comment"># this command will also delete all the objects under the namespace</span>
+<span class="hljs-comment"># &gt; kubectl delete namespace &lt;namespace name&gt;</span>
+&gt; kubectl delete namespace ns1
+</div></code></pre>
+<h2 id="pod">pod</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of pods running in default namespace</span>
+&gt; kubectl get pods
+
+<span class="hljs-comment"># get the list of pods running in requirement namespace</span>
+&gt; kubectl get pods -n &lt;ns name&gt;
+
+<span class="hljs-comment"># get the list of pods with wide/more options</span>
+&gt; kubectl get pods -n &lt;ns name&gt; -o wide
+
+<span class="hljs-comment"># create a pod using pod1.yaml file</span>
+&gt; kubectl create -f pod1.yaml
+
+<span class="hljs-comment"># get the details of selected pod</span>
+&gt; kubectl describe pod &lt;pod name&gt;
+
+<span class="hljs-comment"># delete the pod from default namespace</span>
+&gt; kubectl delete pod &lt;pod name&gt;
+
+<span class="hljs-comment"># delete the pod from required namespace</span>
+&gt; kubectl delete pod &lt;pod name&gt; -n &lt;ns name&gt;
+
+<span class="hljs-comment"># get the logs of a selected pod</span>
+&gt; kubectl logs &lt;pod name&gt;
+
+<span class="hljs-comment"># get the logs continuously of a selected pod</span>
+&gt; kubectl logs -f &lt;pod name&gt;
+
+<span class="hljs-comment"># execute a command inside a pod</span>
+&gt; kubectl <span class="hljs-built_in">exec</span> -it &lt;pod name&gt; -- &lt;<span class="hljs-built_in">command</span>&gt;
+
+<span class="hljs-comment"># get the terminal of a selected pod</span>
+&gt; kubectl <span class="hljs-built_in">exec</span> -it &lt;pod name&gt; -- bash
+
+<span class="hljs-comment"># get the terminal of a selected pod from a selected containers</span>
+<span class="hljs-comment"># if -c is not given, the first container will execute the command</span>
+&gt; kubectl <span class="hljs-built_in">exec</span> -it &lt;pod name&gt; -c &lt;container name&gt; -- bash
+</div></code></pre>
+<hr>
+<h3 id="sidecar-pattern-vs-init-container-pattern">Sidecar Pattern vs Init-container pattern</h3>
+<p><img src="images/k8s_sidecar_VS_initcontainer.png" alt="alt text"></p>
+<hr>
+<h2 id="replica-sets">replica sets</h2>
+<ul>
+<li>used to create multiple replicas of selected pod</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get list of replica-set</span>
+&gt; kubectl get replicasets
+&gt; kubectl get replicaset
+&gt; kubectl get rs
+
+<span class="hljs-comment"># get details of selected replica-set</span>
+&gt; kubectl describe rs &lt;rs name&gt;
+
+
+<span class="hljs-comment"># to scale out or in, update the replicas in yaml file</span>
+&gt; kubectl apply -f &lt;rs yaml file&gt;
+
+<span class="hljs-comment"># delete a replica-set</span>
+&gt; kubectl delete replicaset &lt;rs name&gt;
+</div></code></pre>
+<h3 id="replicaset-architecture">Replicaset Architecture</h3>
+<p><img src="images/k8s-replica-set.png" alt="alt text"></p>
+<h2 id="service">service</h2>
+<ul>
+<li>
+<p>used to balance the load amongst multiple pods</p>
+</li>
+<li>
+<p>these multiple pods can be created using replica-set or deployment</p>
+</li>
+<li>
+<p>types</p>
+</li>
+<li>
+<p>ClusterIP</p>
+</li>
+<li>
+<p>service which will be accessible only within the cluster</p>
+</li>
+<li>
+<p>service can not be accessed outside the cluster</p>
+</li>
+<li>
+<p>can be used to access an application inside the cluster by other pods</p>
+</li>
+<li>
+<p>e.g. frontend pod is accessing backend service which is load balancing the backend pods</p>
+</li>
+<li>
+<p>ports</p>
+</li>
+<li>
+<p>port</p>
+</li>
+<li>
+<p>the internal client will send the request to service on this port</p>
+</li>
+<li>
+<p>you are free to choose this port as per your requirement</p>
+</li>
+<li>
+<p>targetPort</p>
+</li>
+<li>
+<p>service will forward the request to pod(s) on this port</p>
+</li>
+<li>
+<p>this port number must be same as the port on which the pod is listening on</p>
+</li>
+<li>
+<p>NodePort</p>
+</li>
+<li>
+<p>service will make the application accessible outside the cluster</p>
+</li>
+<li>
+<p>it internally will create a clusterIP service</p>
+</li>
+<li>
+<p>ports</p>
+</li>
+<li>
+<p>port</p>
+</li>
+<li>
+<p>the internal client will send the request to service on this port</p>
+</li>
+<li>
+<p>you are free to choose this port as per your requirement</p>
+</li>
+<li>
+<p>targetPort</p>
+</li>
+<li>
+<p>service will forward the request to pod(s) on this port</p>
+</li>
+<li>
+<p>this port number must be same as the port on which the pod is listening on</p>
+</li>
+<li>
+<p>nodePort</p>
+</li>
+<li>
+<p>the port assigned to the node on which external client will send the request</p>
+</li>
+<li>
+<p>if needed you can specify the nodePort within the range of 30000-32767</p>
+</li>
+<li>
+<p>if not specified, the kubernetes will assign a random nodePort to the service</p>
+</li>
+<li>
+<p>LoadBalancer</p>
+</li>
+<li>
+<p>used to create a load balancer in cloud (for AWS it will create ALB)</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of services</span>
+&gt; kubectl get services
+
+<span class="hljs-comment"># get the service details</span>
+&gt; kubectl describe service &lt;service name&gt;
+</div></code></pre>
+<h3 id="service-architecture">Service architecture</h3>
+<p><img src="images/k8s-service.png" alt="alt text"></p>
+<h2 id="config-map">config map</h2>
+<ul>
+<li>
+<p>collection of key-value pairs (configuration)</p>
+</li>
+<li>
+<p>used for storing non-sensitive application configurations</p>
+</li>
+<li>
+<p>e.g. port number, backend url</p>
+</li>
+<li>
+<p>all the configurations stored in config map are exposed to the application</p>
+</li>
+</ul>
+<p>via environment variables</p>
+<ul>
+<li>all values must be in string format (wrapped in double quotes)</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of config maps</span>
+&gt; kubectl get configmap
+&gt; kubectl get cm
+
+<span class="hljs-comment"># get details of selected config map</span>
+&gt; kubectl describe cm &lt;cm name&gt;
+
+<span class="hljs-comment"># delete selected config map</span>
+&gt; kubectl delete cm &lt;cm name&gt;
+</div></code></pre>
+<h2 id="secrets">secrets</h2>
+<ul>
+<li>
+<p>collection of key-value pairs (configuration)</p>
+</li>
+<li>
+<p>used for storing sensitive application configurations</p>
+</li>
+<li>
+<p>e.g. password, secret, access token</p>
+</li>
+<li>
+<p>all the configurations stored in secrets are exposed to the application</p>
+</li>
+</ul>
+<p>via environment variables</p>
+<ul>
+<li>all values must be in bas64 encoded string format (wrapped in double quotes)</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of secrets</span>
+&gt; kubectl get secrets
+  
+<span class="hljs-comment"># get details of a selected secret</span>
+&gt; kubectl describe secret &lt;secret name&gt;
+
+<span class="hljs-comment"># delete selected secret</span>
+&gt; kubectl delete secret &lt;secret name&gt;
+</div></code></pre>
+<h2 id="deployment">deployment</h2>
+<ul>
+<li>
+<p>represents logical deployment of an application</p>
+</li>
+<li>
+<p>internally it uses replica set to replicate the pods</p>
+</li>
+<li>
+<p>can be updated or rollbacked using rollout commands</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>
+<span class="hljs-comment"># get the list of deployments</span>
+&gt; kubectl get deployments
+&gt; kubectl get deploy
+
+<span class="hljs-comment"># get details of selected deployment</span>
+&gt; kubectl describe deploy &lt;deploy name&gt;
+
+<span class="hljs-comment"># delete deployment</span>
+&gt; kubectl delete deploy &lt;deploy name&gt;
+</div></code></pre>
+<hr>
+<h3 id="deployment-architecture">Deployment architecture</h3>
+<h2 id="alt-text"><img src="images/k8s-deployment.png" alt="alt text"></h2>
+<h2 id="rollout">rollout</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># restart the deployment using rollout</span>
+<span class="hljs-comment"># this will force deployment to load the new version from docker hub</span>
+&gt; kubectl rollout restart deployment &lt;deployment-name&gt;
+
+<span class="hljs-comment"># get the history of rollout</span>
+&gt; kubectl rollout <span class="hljs-built_in">history</span> deployment &lt;deployment-name&gt;
+
+<span class="hljs-comment"># rollback to the older version (previous version)</span>
+&gt; kubectl rollout undo deployment &lt;deployment-name&gt;
+
+<span class="hljs-comment"># rollback to the specific older version</span>
+&gt; kubectl rollout undo deployment &lt;deployment-name&gt;  --to-revision=&lt;version-number&gt;
+
+<span class="hljs-comment"># update the image tag (version)</span>
+&gt; kubectl <span class="hljs-built_in">set</span> image deployment &lt;deployment-name&gt;  &lt;container-name&gt;=&lt;newer version&gt;
+
+<span class="hljs-comment"># get the current status of rollout</span>
+&gt; kubectl rollout status deployment &lt;deployment-name&gt;
+</div></code></pre>
+<h2 id="persistent-volumes">persistent volumes</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of persistent volumes</span>
+&gt; kubectl get persistentvolumes
+&gt; kubectl get pv
+
+<span class="hljs-comment"># create a pv</span>
+&gt; kubectl apply -f pv.yaml
+
+<span class="hljs-comment"># get details of selected pv</span>
+&gt; kubectl describe pv &lt;pv name&gt;
+
+<span class="hljs-comment"># delete a pv</span>
+&gt; kubectl delete pv &lt;pv name&gt;
+</div></code></pre>
+<h2 id="persistent-volume-claim">persistent volume claim</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of pvc</span>
+&gt; kubectl get pvc
+
+<span class="hljs-comment"># get details of a selected pvc</span>
+&gt; kubectl describe pvc &lt;pvc name&gt;
+
+<span class="hljs-comment"># delete a pvc</span>
+&gt; kubectl delete pvc &lt;pvc name&gt;
+</div></code></pre>
+<hr>
+<h3 id="persistent-volume-claim-architecture">persistent volume claim architecture</h3>
+<p><img src="images/K8S_PVC.png" alt="alt text"></p>
+<hr>
+<h2 id="metrics-service">metrics service</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># apply the metrics server yaml</span>
+&gt; kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+ 
+<span class="hljs-comment"># the above url will deploy the metrics server in kube-system namespace</span>
+<span class="hljs-comment"># by default, this will not work</span>
+<span class="hljs-comment"># to fix the problem</span>
+&gt; kubectl edit deployment metrics-server -n kube-system
+
+<span class="hljs-comment"># add the following line on line number 45</span>
+&gt;  --kubelet-insecure-tls=<span class="hljs-literal">true</span>
+
+<span class="hljs-comment"># save and exit =&gt; esc :wq</span>
+
+<span class="hljs-comment"># get the top node usage</span>
+&gt; kubectl top nodes
+
+<span class="hljs-comment"># get the top pods usage</span>
+&gt; kubectl top pods
+
+<span class="hljs-comment"># get all the resources created in the kube-system namespace</span>
+&gt; kubectl get all -n kube-system
+</div></code></pre>
+<h2 id="horizontal-pod-autoscaling">horizontal pod autoscaling</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of hpa</span>
+&gt; kubectl get hpa
+
+<span class="hljs-comment"># get details of selected hpa</span>
+&gt; kubectl describe hpa &lt;hpa name&gt;
+
+<span class="hljs-comment"># delete a selected hpa</span>
+&gt; kubectl delete hpa &lt;hpa name&gt;
+</div></code></pre>
+<hr>
+<h3 id="metrics-service-and-hpa-architecture">Metrics service and HPA architecture</h3>
+<p><img src="images/k8s_metrics_service.png" alt="alt text"></p>
+<h2 id="job">job</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of jobs</span>
+&gt; kubectl get <span class="hljs-built_in">jobs</span>
+
+<span class="hljs-comment"># get details of selected job</span>
+&gt; kubectl describe job &lt;job name&gt;
+
+<span class="hljs-comment"># delete a selected job</span>
+&gt; kubectl delete job &lt;job name&gt;
+</div></code></pre>
+<h2 id="cron-job">cron job</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of cronjobs</span>
+&gt; kubectl get cronjobs
+
+<span class="hljs-comment"># get details of selected cronjob</span>
+&gt; kubectl describe cronjob &lt;cronjob name&gt;
+
+<span class="hljs-comment"># delete a selected cronjob</span>
+&gt; kubectl delete cronjob &lt;cronjob name&gt;
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="helm">Helm</h1>
+<ul>
+<li>package manager for managing the applications inside K8s</li>
+</ul>
+<h2 id="installation">installation</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># download the script file to install the helm</span>
+&gt; curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+<span class="hljs-comment"># change the permission to execute the file</span>
+&gt; chmod 700 get_helm.sh
+
+<span class="hljs-comment"># run the bash script to install helm</span>
+&gt; ./get_helm.sh
+
+<span class="hljs-comment"># check if helm is installed</span>
+&gt; helm version
+</div></code></pre>
+<h2 id="charts">charts</h2>
+<ul>
+<li>chart as a package which contains all the yaml files for running the application in k8s cluster along with its all dependencies</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of charts created or installed</span>
+&gt; helm list
+
+<span class="hljs-comment"># create a new chart</span>
+
+<span class="hljs-comment"># &gt; helm create &lt;chart name&gt;</span>
+&gt; helm create website
+
+<span class="hljs-comment"># once the chart get created, simply delete everything from templates directory</span>
+<span class="hljs-comment"># copy your yaml files inside the templates directory</span>
+
+<span class="hljs-comment"># install the chart</span>
+<span class="hljs-comment"># &gt; helm install &lt;chart name&gt; &lt;chart location&gt;</span>
+&gt; helm install website ./website
+
+<span class="hljs-comment"># uninstall the chart</span>
+<span class="hljs-comment"># &gt; helm uninstall &lt;chart name&gt;</span>
+&gt; helm uninstall website
+</div></code></pre>
+<h2 id="helm-repositories">helm repositories</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># get the list of installed repos</span>
+&gt; helm repo list
+
+<span class="hljs-comment"># add a repo</span>
+
+<span class="hljs-comment"># &gt; helm repo add &lt;name&gt; &lt;repo url&gt;</span>
+&gt; helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+&gt; helm repo add grafana https://grafana.github.io/helm-charts
+
+<span class="hljs-comment"># download the charts from repo</span>
+&gt; helm repo update
+
+<span class="hljs-comment"># install prometheus</span>
+&gt; helm install prometheus prometheus-community/prometheus
+
+<span class="hljs-comment"># install grafana</span>
+&gt; helm install grafana grafana/grafana
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="jenkins">Jenkins</h1>
+<h3 id="architecture">Architecture</h3>
+<hr>
+<p><img src="images/Jenkins.png" alt="alt text"></p>
+<h2 id="installation">installation</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># update the apt cache</span>
+&gt; sudo apt-get update
+
+<span class="hljs-comment"># install jre</span>
+&gt; sudo apt-get install openjdk-17-jdk 
+
+<span class="hljs-comment"># download the apt key for jenkins repo</span>
+&gt; sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+<span class="hljs-comment"># install the key</span>
+<span class="hljs-built_in">echo</span>  <span class="hljs-string">"deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]"</span>  \
+https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+/etc/apt/sources.list.d/jenkins.list  &gt;  /dev/null
+
+
+<span class="hljs-comment"># update the apt cache</span>
+&gt; sudo apt-get update
+
+<span class="hljs-comment"># install jenkins</span>
+&gt; sudo apt-get install jenkins
+
+<span class="hljs-comment"># check the status of jenkins service</span>
+&gt; sudo systemctl status jenkins
+
+<span class="hljs-comment"># enable and start the jenkins service</span>
+&gt; sudo systemctl <span class="hljs-built_in">enable</span> --now jenkins
+</div></code></pre>
+<h2 id="configure-the-jenkins">configure the jenkins</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># visit the url: http://&lt;ip&gt;:8080</span>
+<span class="hljs-comment"># enter the initial password from /var/lib/jenkins/secrets/initialAdminPassword file</span>
+&gt; sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+</div></code></pre>
+<h2 id="automating-the-passwordless-authentication-with-ec2-instance">automating the passwordless authentication with EC2 instance</h2>
+<ul>
+<li>execute these instructions on your machine</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># login as root</span>
+
+&gt; sudo su
+
+<span class="hljs-comment"># login as jenkins</span>
+
+&gt; su jenkins
+
+<span class="hljs-comment"># generate a ssh key</span>
+
+&gt; ssh-keygen
+
+<span class="hljs-comment"># do not set any passphrase</span>
+
+<span class="hljs-comment"># this will create a private key named id_ed25519 and public key with name id_ed25519.pub</span>
+
+<span class="hljs-comment"># copy the contents of id_ed25519.pub and paste them to the EC2's</span>
+
+<span class="hljs-comment"># - /home/ubuntu/.ssh/authorized_keys file</span>
+
+<span class="hljs-comment"># test passwordless auth by login to the ec2 instance</span>
+
+&gt; ssh ubuntu@&lt;public ip of ec2&gt;
+</div></code></pre>
+<h2 id="install-and-configure-the-ssh-plugin">install and configure the ssh plugin</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># install the ssh and publish over ssh plugins from manage jenkins screen</span>
+
+<span class="hljs-comment"># go to the system configuration from manage jenkins</span>
+
+<span class="hljs-comment"># configure the ssh servers (SSH remote hosts)</span>
+
+<span class="hljs-comment"># - name: alias for ec2 instance</span>
+
+<span class="hljs-comment"># - hostname: public ip address of ec2 instance</span>
+
+<span class="hljs-comment"># - username: ubuntu</span>
+
+<span class="hljs-comment"># - remote directory: /home/ubuntu</span>
+
+<span class="hljs-comment"># - key: contents of pem file</span>
+</div></code></pre>
+<h2 id="job-configuration">job configuration</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># execute shell commands</span>
+&gt; <span class="hljs-built_in">echo</span> <span class="hljs-variable">$SERVER_IP</span>
+<span class="hljs-comment"># upload the file named index.html to the ec2 instance</span>
+&gt; scp index.html ubuntu@<span class="hljs-variable">$SERVER_IP</span>:~/
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># execute commands over ssh</span>
+&gt; sudo mv ~/index.html /var/www/html
+</div></code></pre>
+<h2 id="configure-email-notification">configure email notification</h2>
+<ul>
+<li>settings for Extended E-mail Notification</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># SMTP server: smtp.gmail.com</span>
+<span class="hljs-comment"># SMTP port: 465</span>
+<span class="hljs-comment"># User SSL: true</span>
+<span class="hljs-comment"># create app password</span>
+&gt; https://myaccount.google.com/u/1/apppasswords
+<span class="hljs-comment"># remove the space and copy the password</span>
+</div></code></pre>
+<h2 id="using-docker">using docker</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># add jenkins to the docker group</span>
+&gt; sudo usermod -aG docker jenkins
+
+<span class="hljs-comment"># restart the jenkins service</span>
+&gt; sudo systemctl restart jenkins
+
+<span class="hljs-comment"># create Dockerfile</span>
+<span class="hljs-comment"># include docker in the system path</span>
+&gt;  <span class="hljs-built_in">export</span>  PATH=<span class="hljs-variable">$PATH</span>:/usr/bin/
+
+<span class="hljs-comment"># create image</span>
+&gt; docker image build -t &lt;dockerhub username&gt;/python-server .
+
+<span class="hljs-comment"># login to the docker hub</span>
+&gt; <span class="hljs-built_in">echo</span> &lt;docker hub token&gt;  |  docker  login  -u  &lt;docker  hub  username&gt;  --password-stdin
+
+
+<span class="hljs-comment"># push the image to docker hub</span>
+docker  image  push  &lt;dockerhub  username&gt;/python-server
+
+<span class="hljs-comment"># remove the service</span>
+docker service  rm  python-server
+
+<span class="hljs-comment"># create the service again</span>
+docker  service  create  --name  python-server  --replicas  2  -p  5000:5000  &lt;dockerhub  username&gt;/python-server
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="argocd">ArgoCD</h1>
+<h2 id="installation">installation</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># create a namespace for argocd</span>
+&gt; kubectl create namespace argocd
+
+<span class="hljs-comment"># install argoCD using yaml file</span>
+
+&gt; kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+<span class="hljs-comment"># once installed and all components are running in argocd namespace,</span>
+
+<span class="hljs-comment"># edit the argocd-server service to change the type to NodePort</span>
+&gt; kubectl edit service argocd-server -n argocd
+
+<span class="hljs-comment"># expose the service for argocd (only for minikube)</span>
+&gt; minikube service argocd-server -n argocd
+
+<span class="hljs-comment"># get the initial admin password</span>
+&gt; kubectl edit secret argocd-initial-admin-secret -n argocd
+
+<span class="hljs-comment"># get the password from secret decoded</span>
+&gt; <span class="hljs-built_in">echo</span> &lt;base64 encoded password&gt;  |  base64  -d
+</div></code></pre>
+<h2 id="create-argocd-application">create ArgoCD application</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># application name: website-app</span>
+
+<span class="hljs-comment"># project name: default</span>
+
+<span class="hljs-comment"># sync policy: automatic</span>
+
+<span class="hljs-comment"># self heal: checked</span>
+
+<span class="hljs-comment"># repository url: github repo url</span>
+
+<span class="hljs-comment"># path: ./ (this is the path where the deployment.yaml file is located)</span>
+
+<span class="hljs-comment"># k8s cluster: https://kubernetes.default.svc</span>
+
+<span class="hljs-comment"># namespace: default</span>
+</div></code></pre>
+<hr>
+<div style="page-break-after: always;"></div>
+<h1 id="sonarqube">SonarQube</h1>
+<h2 id="installation">installation</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># install unzip</span>
+&gt; sudo apt-get install unzip
+
+<span class="hljs-comment"># download the sonarqube</span>
+&gt; wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.8.100196.zip
+
+<span class="hljs-comment"># unzip the zip file</span>
+&gt; unzip sonarqube-9.9.8.100196.zip
+
+<span class="hljs-comment"># start the sonarqube server</span>
+&gt; <span class="hljs-built_in">cd</span> sonarqube-9.9.8.100196/bin/linux-x86-64
+&gt; bash sonar.sh start
+
+<span class="hljs-comment"># check the sonarqube installation</span>
+&gt; visit http://&lt;vm ip address&gt;:9000
+</div></code></pre>
+<h2 id="install-sonar-scanner">install sonar-scanner</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># download the respective version from</span>
+&gt; https://docs.sonarsource.com/sonarqube-server/9.9/analyzing-source-code/scanners/sonarscanner/
+
+<span class="hljs-comment"># download the file for linux</span>
+&gt; wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux-x64.zip
+
+<span class="hljs-comment"># unzip the file</span>
+&gt; unzip sonar-scanner-cli-6.2.1.4610-linux-x64.zip
+
+<span class="hljs-comment"># rename the directory</span>
+&gt; mv sonar-scanner-cli-6.2.1.4610-linux-x64 sonar-scanner
+
+<span class="hljs-comment"># move the directory to /var/lib/</span>
+&gt; sudo mv sonar-scanner /var/lib
+</div></code></pre>
+<hr>
+
+</body>
+</html>

@@ -6,6 +6,7 @@
 
 
 ### Deployable package management
+
   
 
 - packages
@@ -520,7 +521,9 @@
 
 - refs
 
-  
+### GIT INTERNALS WORKING
+
+![alt text](images/git.png)  
 
 ```bash
 
@@ -700,8 +703,42 @@
 
 > sudo mv /tmp/index.html /var/www/html/
 ```
+
+### AWS VPC ARCHITECTURE
+
+![alt text](images/AWS_VPC.png)
+
+---
+
+![alt text](images/AWS_VPC_2.png)
+
+---
+
+### AWS VPC PEERING
+
+![alt text](images/VPCPeering.png)
+
+---
+
+### AWS ELASTIC LOAD BALANCER
+
+![alt text](images/AWS_ElasticLoadBalancer.png)
+
+---
+
+### AWS S3
+![alt text](images/AWS_S3.png)
+
+---
+
+### JUMPBOX ARCHITECTURE
+
+![alt text](images/JUMPBOX.png)
+
 ---
 <div style="page-break-after: always;"></div>
+
+
 
 # Terraform
 
@@ -1146,6 +1183,12 @@ sudo  tee  /etc/apt/sources.list.d/docker.list  >  /dev/null
 # this container will run by default in attached mode
 > docker container run --name <name>  <image name or id>
 
+```
+---
+### Attached Mode Architecture
+![alt text](images/Docker_attached_mode.png)
+
+```bash
 # run the container in detached mode (background)
 # -d: detached mode
 # -i: enable the docker interactive mode
@@ -1160,8 +1203,13 @@ sudo  tee  /etc/apt/sources.list.d/docker.list  >  /dev/null
 # - port exposed by the container
 # > docker container run --name <name> -itd -p <source port>:<container port> <image name or id>
 > docker container run --name myhttpd -itd -p 8080:80 httpd
+```
+---
+### Port forwarding Architecture
 
+![alt text](images/Port_Forwarding.png)
 
+```bash
 # run mysql in a container
 > docker container run --name mysql -itd -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root  mysql
 
@@ -1207,6 +1255,9 @@ sudo  tee  /etc/apt/sources.list.d/docker.list  >  /dev/null
 > docker container run --name mysql -itd -p 3306:3306 -v myvolume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root  mysql
 ```
 
+### Volume Architecture
+
+![alt text](images/Volumes.png)
   
 
 ## images
@@ -1584,6 +1635,7 @@ sudo kubeadm init --apiserver-advertise-address="$MASTER_PRIVATE_IP" --apiserver
 
 # MASTER_PRIVATE_IP=192.x.x.x
 
+
 # Configure kubeconfig
 mkdir -p "$HOME"/.kube
 sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
@@ -1591,7 +1643,7 @@ sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
 
 # Install Calico Network Plugin Network 
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
-```		
+```		  
 
 ## vim configuration
 
@@ -1690,8 +1742,13 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 > kubectl exec -it <pod name> -c <container name> -- bash
 ```
 
-  
+---
 
+### Sidecar Pattern vs Init-container pattern
+
+![alt text](images/k8s_sidecar_VS_initcontainer.png)  
+
+---
 ## replica sets
 
   
@@ -1716,8 +1773,9 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 # delete a replica-set
 > kubectl delete replicaset <rs name>
 ```
+### Replicaset Architecture
 
-  
+![alt text](images/k8s-replica-set.png)  
 
 ## service
 
@@ -1795,7 +1853,9 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 > kubectl describe service <service name>
 ```
 
-  
+### Service architecture
+
+![alt text](images/k8s-service.png)
 
 ## config map
 
@@ -1882,8 +1942,11 @@ via environment variables
 # delete deployment
 > kubectl delete deploy <deploy name>
 ```
+---
+### Deployment architecture
 
-  
+![alt text](images/k8s-deployment.png)  
+---
 
 ## rollout
 
@@ -1947,8 +2010,12 @@ via environment variables
 # delete a pvc
 > kubectl delete pvc <pvc name>
 ```
+---
+### persistent volume claim architecture 
 
-  
+![alt text](images/K8S_PVC.png)  
+
+---
 
 ## metrics service
 
@@ -1990,8 +2057,10 @@ via environment variables
 # delete a selected hpa
 > kubectl delete hpa <hpa name>
 ```
+---
+### Metrics service and HPA architecture
 
-  
+![alt text](images/k8s_metrics_service.png)  
 
 ## job
 
@@ -2104,7 +2173,10 @@ via environment variables
 
 # Jenkins
 
-  
+### Architecture
+---
+![alt text](images/Jenkins.png)
+
 
 ## installation
 
