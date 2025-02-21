@@ -1807,6 +1807,9 @@ sudo kubeadm config images pull
 MASTER_PRIVATE_IP=$(ip addr show eth1 | awk <span class="hljs-string">'/inet / {print $2}'</span> | cut -d/ -f1)
 sudo kubeadm init --apiserver-advertise-address=<span class="hljs-string">"<span class="hljs-variable">$MASTER_PRIVATE_IP</span>"</span> --apiserver-cert-extra-sans=<span class="hljs-string">"<span class="hljs-variable">$MASTER_PRIVATE_IP</span>"</span> --pod-network-cidr=<span class="hljs-string">"<span class="hljs-variable">$POD_CIDR</span>"</span> --node-name <span class="hljs-string">"<span class="hljs-variable">$NODENAME</span>"</span> --ignore-preflight-errors Swap
 
+<span class="hljs-comment"># if this doesn't work set the ip of MASTER IP manually</span>
+
+<span class="hljs-comment"># MASTER_PRIVATE_IP=192.x.x.x</span>
 
 <span class="hljs-comment"># Configure kubeconfig</span>
 mkdir -p <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube
