@@ -365,7 +365,10 @@ code {
           : 'default'
     });
   </script>
-<h1 id="deployable-package-management">Deployable package management</h1>
+<h1 id="devops-commands-guide">Devops Commands Guide</h1>
+<hr>
+<h2 id="linux-intro-and-commands">Linux Intro and Commands</h2>
+<h3 id="deployable-package-management">Deployable package management</h3>
 <ul>
 <li>
 <p>packages</p>
@@ -1723,6 +1726,96 @@ sudo  tee  /etc/apt/sources.list.d/docker.list  &gt;  /dev/null
 <hr>
 <div style="page-break-after: always;"></div>
 <h1 id="kubernetes">Kubernetes</h1>
+<h2 id="installation">Installation</h2>
+<blockquote>
+<p>These commands to be fired on Master as well as all Nodes</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-built_in">set</span> -euxo pipefail
+
+<span class="hljs-comment"># declare variables</span>
+KUBERNETES_VERSION=<span class="hljs-string">"v1.31"</span>
+CRIO_VERSION=<span class="hljs-string">"v1.30"</span>
+
+<span class="hljs-comment"># disable swap</span>
+sudo swapoff -a
+
+<span class="hljs-comment"># Create the .conf file to load the modules at boot time</span>
+cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+<span class="hljs-comment"># Sysctl params required by setup, params persist across reboots</span>
+cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+<span class="hljs-comment"># Apply sysctl params without reboot</span>
+sudo sysctl --system
+
+<span class="hljs-comment"># Install CRI-O Runtime</span>
+sudo apt-get update -y
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg software-properties-common
+
+<span class="hljs-comment"># add CRI-O key and repository</span>
+curl -fsSL https://pkgs.k8s.io/addons:/cri-o:/stable:/<span class="hljs-variable">$CRIO_VERSION</span>/deb/Release.key |
+    sudo gpg --dearmor -o /etc/apt/keyrings/cri-o-apt-keyring.gpg
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/<span class="hljs-variable">$CRIO_VERSION</span>/deb/ /"</span> |
+    sudo tee /etc/apt/sources.list.d/cri-o.list
+
+<span class="hljs-comment"># update the cache and install CRI-O</span>
+sudo apt-get update -y
+sudo apt-get install -y cri-o
+
+<span class="hljs-comment"># start the CRI-O service</span>
+sudo systemctl daemon-reload
+sudo systemctl <span class="hljs-built_in">enable</span> crio --now
+sudo systemctl start crio.service
+
+<span class="hljs-comment"># add the kubernetes key and repository</span>
+curl -fsSL https://pkgs.k8s.io/core:/stable:/<span class="hljs-variable">$KUBERNETES_VERSION</span>/deb/Release.key |
+    sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/<span class="hljs-variable">$KUBERNETES_VERSION</span>/deb/ /"</span> |
+    sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+<span class="hljs-comment"># install kubelet, kubeadm, and kubectl latest version</span>
+sudo apt-get update -y
+sudo apt-get install -y kubelet kubectl kubeadm
+
+<span class="hljs-comment"># Prevent automatic updates for kubelet, kubeadm, and kubectl</span>
+sudo apt-mark hold kubelet kubeadm kubectl
+sudo apt-get update -y
+</div></code></pre>
+<blockquote>
+<p>After that these commands to be fired on master</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-comment"># Setup for Control Plane (Master) servers</span>
+
+NODENAME=$(hostname -s)
+POD_CIDR=<span class="hljs-string">"192.168.0.0/16"</span>
+
+<span class="hljs-comment"># Pull required images</span>
+sudo kubeadm config images pull
+
+<span class="hljs-comment"># get the private IP of the master node    </span>
+MASTER_PRIVATE_IP=$(ip addr show eth1 | awk <span class="hljs-string">'/inet / {print $2}'</span> | cut -d/ -f1)
+sudo kubeadm init --apiserver-advertise-address=<span class="hljs-string">"<span class="hljs-variable">$MASTER_PRIVATE_IP</span>"</span> --apiserver-cert-extra-sans=<span class="hljs-string">"<span class="hljs-variable">$MASTER_PRIVATE_IP</span>"</span> --pod-network-cidr=<span class="hljs-string">"<span class="hljs-variable">$POD_CIDR</span>"</span> --node-name <span class="hljs-string">"<span class="hljs-variable">$NODENAME</span>"</span> --ignore-preflight-errors Swap
+
+
+<span class="hljs-comment"># Configure kubeconfig</span>
+mkdir -p <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube
+sudo cp -i /etc/kubernetes/admin.conf <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube/config
+sudo chown <span class="hljs-string">"<span class="hljs-variable">$(id -u)</span>"</span>:<span class="hljs-string">"<span class="hljs-variable">$(id -g)</span>"</span> <span class="hljs-string">"<span class="hljs-variable">$HOME</span>"</span>/.kube/config
+
+<span class="hljs-comment"># Install Calico Network Plugin Network </span>
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+</div></code></pre>
 <h2 id="vim-configuration">vim configuration</h2>
 <pre class="hljs"><code><div><span class="hljs-comment"># add the following lines in ~/.vimrc</span>
 
