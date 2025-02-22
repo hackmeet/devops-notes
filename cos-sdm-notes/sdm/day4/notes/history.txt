@@ -1,0 +1,384 @@
+10008  mkdir test-code
+10009  cd test-code
+10010  ls -la
+10011  git init
+10012  ls -la
+10013* cd /tmp/test-code
+10014* clear
+10015* cd .git
+10016* ls
+10017* ls -la
+10018* cd hooks
+10019* ls
+10020* rm *
+10021* ls
+10022* cd ..
+10023* clear
+10024* cd ingo
+10025* cd info
+10026* ls
+10027* cd ..
+10028* clear
+10029* pwd
+10030* watch -n 1 tree .
+10031  vim myfile.txt
+10032  git status -s
+10033  git add .
+10034  cat .git/objects/9e/e4e6da3eabeab3a2d5e3bd965c187222c3cc11
+10035  cat myfile.txt
+10036  git cat-file -p 9ee4e6
+10037  git status -s
+10038  git commit -m "first commit"
+10039  git log --oneline --graph --color
+10040  git log
+10041  git log --oneline --graph --color
+10042  git cat-file -p 2e2481b
+10043  git cat-file -p b2f57eb
+10044  git cat-file -p 9ee4e6da
+10045  vim myfile.txt
+10046  git status -s
+10047  git add .
+10048  git cat-file -p 4afaf6
+10049  git commit -m "second commit"
+10050  git cat-file -p 20beb7a
+10051  git cat-file -p f839e5fa
+10052  vim yourfile.txt
+10053  git status -s
+10054  git add .
+10055  git commit -m "third commit"
+10056  git cat-file -p a426a6e
+10057  git cat-file -p 30b9b95
+10058  git cat-file -p 9c0391
+10059  vim myfile.txt
+10060  vim yourfile.txt
+10061  git status -s
+10062  git add .
+10063  git commit -m "forth commit"
+10064  git cat-file -p b1dd2c9
+10065  git cat-file -p 8f45018
+10066  git cat-file -p 08db324
+10067  git cat-file -p 91e7739
+10068  man git
+10069  code .
+10070* exit
+10071  clear
+10072  git status -s
+10073  git checkout myfile.txt
+10074  git status -s
+10075  git log --oneline --graph --color
+10076  git checkout myfile.txt
+10077  git status -s
+10078  git checkout yourfile.txt
+10079  git add .
+10080  git reset --hard
+10081  git branch
+10082  git branch dev1
+10083  git branch
+10084  git status -s
+10085  git status
+10086  git branch
+10087  git status
+10088  git branch
+10089  git checkout dev1
+10090  git branch
+10091  git status
+10092  git checkout main
+10093  git branch
+10094  git status
+10095  git checkout dev1
+10096  git checkout main
+10097  clear
+10098  git branch dev2
+10099  git branch 
+10100  git checkout dev2
+10101  git checkout dev1
+10102  git checkout main
+10103  git branch 
+10104  git delete -d dev1
+10105  git branch -d dev1
+10106  git branch -d dev2
+10107  git branch 
+10108  git branch
+10109  git checkout dev1
+10110  git checkout -b dev1
+10111  git branch
+10112  git checkout -b main
+10113  git checkout main
+10114  git checkout -b dev2
+10115  git branch
+10116  git branch -d dev1
+10117  git branch -d dev2
+10118  git branch
+10119  git branch -d dev2
+10120  git checkout main 
+10121  git branch -d dev2
+10122  cd ..
+10123  rm -rf test-code
+10124  mkdir test-code
+10125  clear
+10126  cd test-code
+10127  ls -ls
+10128  ls -la
+10129  git init
+10130  clr
+10131  vim myfile.txt
+10132  ls
+10133  git status
+10134  git branch
+10135  a
+10136  git status
+10137  git status -s
+10138  git add .
+10139  git commit -m "first commit"
+10140  git log --oneline --graph --color
+10141  git branch
+10142  git branch dev1
+10143  git branch
+10144  git checkout dev1
+10145  git branch
+10146  git status
+10147  vim myfile.txt
+10148  git status -s
+10149  git add .
+10150  git commit -m "second commit"
+10151  git branch
+10152  code .
+10153  git checkout main
+10154  git checkout dev1
+10155  git checkout main
+10156  git checkout dev1
+10157  git checkout main
+10158  git checkout dev1
+10159  clear
+10160  git branch
+10161  git checkout main
+10162  git merge dev1
+10163  cd ..
+10164  clear
+10165  rm -rf test-code
+10166  mkdir test-code
+10167  cd test-code
+10168  git init
+10169  clear
+10170  vim myfile.txt
+10171  git add .
+10172  git commit -m "first commit"
+10173  cd ..
+10174  rm -rf test-code
+10175  mkdir test-code
+10176  cd test-code
+10177  vim myfile.txt
+10178  git init
+10179  git status
+10180  git init
+10181  git status
+10182  git add .
+10183  git commit -m "first commit"
+10184  cd .git/refs
+10185  ls
+10186  cd heads
+10187  ls
+10188  cat main
+10189  cd ../../..
+10190  git branch dev1
+10191  cd -
+10192  ls
+10193  cat dev1
+10194  cd -
+10195  cler
+10196  clear
+10197  git branch
+10198  cat .git/HEAD
+10199  git checkout dev1
+10200  cat .git/HEAD
+10201  git log --oneline --graph --color
+10202  git status
+10203  vim myfile.txt
+10204  git add .
+10205  git commit -m "second commit"
+10206  git lo
+10207  git log --oneline --graph --color
+10208  git cat-file -p dcf0d16
+10209  git log --oneline --graph --color
+10210  vim myfile.txt
+10211  git status
+10212  git add .
+10213  git commit -m "third commit"
+10214  git checkout main
+10215  cat myfile.txt
+10216  git checkout dev1
+10217  cat myfile.txt
+10218  git checkout main
+10219  git log --oneline --graph --color
+10220  git checkout dev1
+10221  git log --oneline --graph --color
+10222  git checkout main
+10223  git log --oneline --graph --color
+10224  git merge dev1
+10225  git log --oneline --graph --color
+10226  ls .git/objects
+10227  ls .git/objects/1e
+10228  git log --oneline --graph --color
+10229  git cat-file -p 1e01766
+10230  git cat-file -p b2f57eb
+10231  git cat-file -p 9ee4e6d
+10232  git checkout -b dev2
+10233  git status
+10234  git add .
+10235  git commit -m "third commit"
+10236  git log --oneline --graph --color
+10237  git add .
+10238  git commit -m "forth commit"
+10239  git checkout main
+10240  git log --oneline --graph --color
+10241  git merge dev2
+10242  git log --oneline --graph --color
+10243  git checkout -b dev3
+10244  git log --oneline --graph --color
+10245  git add .
+10246  git commit -m "added line 5"
+10247  git checkout main
+10248  cklear
+10249  clear
+10250  vim yourfile.txt
+10251  git add . 
+10252  git commit -m "added yourfile"
+10253  git cat-file -p 55990c9
+10254  git status
+10255  git merge dev3
+10256  git log --oneline --graph --color
+10257  git cat-file -p 5aabe91
+10258  git branch dev4
+10259  git log --oneline --graph --color
+10260  cd .git/refs/heads
+10261  ls
+10262  cp main dev5
+10263  cd ~.
+10264  cd -
+10265  git branch 
+10266  rm .git/refs/heads/dev5
+10267  git branch 
+10268  rm .git/refs/heads/dev4
+10269  git branch 
+10270  git checkout dev3
+10271  git checkout main
+10272  vim .git/HEAD
+10273  git branch
+10274  vim .git/HEAD
+10275  clear
+10276  git checkout myfile.txt
+10277  git checkout dev1
+10278  git checkout main
+10279  git checkout dcf0d16
+10280  git checkout main
+10281  git checkout dcf0d16
+10282  git branch mybranch
+10283  git checkout main
+10284  git log --oneline --graph --color
+10285  git branch -d dev1
+10286  git branch -d dev2
+10287  git log --oneline --graph --color
+10288  git checkout 39a6d8f
+10289  git branch dev1
+10290  git checkout main
+10291  git log --oneline --graph --color
+10292  git branch
+10293  git branch -d dev1
+10294  git branch -d dev2
+10295  git branch -d dev3
+10296  git branch -d mybranch
+10297  git log --oneline --graph --color
+10298  git branch -d main
+10299  git checkout -b mybranch
+10300  git branch
+10301  git delete -d main
+10302  git branch -d main
+10303  git branch
+10304  git checkout main
+10305  git checkout -b main
+10306  git branch
+10307  q
+10308  clear
+10309  cd ..
+10310  clear
+10311  rm -rf test-code
+10312  mkdir test-code
+10313  clea
+10314  cd test-code
+10315  clear
+10316  l
+10317  git init
+10318  clear
+10319  ls
+10320  vim myfile.txt
+10321  git add .
+10322  git commit -m "first commit"
+10323  git log --oneline --graph --color
+10324  git checkout -b dev1
+10325  git log --oneline --graph --color
+10326  vim myfile.txt
+10327  git add .
+10328  git commit -m "second commit"
+10329  git log --oneline --graph --color
+10330  cat myfile.txt
+10331  git checkout main
+10332  cat myfile.txt
+10333  git checkout dev1
+10334  cat myfile.txt
+10335  git checkout main
+10336  cat myfile.txt
+10337  vim myfile.txt
+10338  git add .
+10339  git commit -m "third commit"
+10340  git log --oneline --graph --color
+10341  git merge dev1
+10342  code .
+10343  git add .
+10344  git commit -m "merged dev1 branch"
+10345  git log --oneline --graph --color
+10346  vim myfile.txt
+10347  git add .
+10348  git commit -m "new version"
+10349  git branch -b b1
+10350  git checkout -b b1
+10351  git add .
+10352  git commit -m "added line at 4"
+10353  git log --oneline --graph --color
+10354  git checkout main
+10355  git add .
+10356  git commit -m "added line at 6"
+10357  git log --oneline --graph --color
+10358  git merge b1
+10359  git checkout -b b2
+10360  git add .
+10361  git commit -m "added line at 5"
+10362  git checkout main
+10363  git add .
+10364  git commit -m "added line at 5"
+10365  git merge b2
+10366  git add .
+10367  git commit -m "merged b2"
+10368  git log --oneline --graph --color
+10369  clear
+10370  git remote -v
+10371  git remote add origin https://github.com/pythoncpp/dac2023-sept-pune.git
+10372  git remote -v
+10373  git push origin main
+10374  git branch -b user-signup
+10375  git checkout -b user-signup
+10376  vim user.js
+10377  git add .
+10378  git commit -m "added user signup api"
+10379  ls
+10380  git push origin user-signup
+10381  code .
+10382  git add .
+10383  git commit -m "updated the api"
+10384  git push origin user-signup
+10385  git checkout main
+10386  ls
+10387  clear
+10388  ls
+10389  git pull
+10390  git pull origin main
+10391  ls
