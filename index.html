@@ -2509,6 +2509,415 @@ docker  service  create  --name  python-server  --replicas  2  -p  5000:5000  &l
 &gt; sudo mv sonar-scanner /var/lib
 </div></code></pre>
 <hr>
+<div style="page-break-after: always;"></div>
+<h1 id="installing-chef-server-workstation-on-ubuntu-1804">Installing Chef Server Workstation on Ubuntu 18.04</h1>
+<p><a href="http://www.chef.io/">Chef</a> is a Ruby based configuration management tool used to define infrastructure as code. This enables users to automate the management of many <em>nodes</em> and maintain consistency across those nodes. <em>Recipes</em> declare the desired state for managed nodes and are created on a user’s <em>workstation</em> using the <em>Chef Workstation</em> package. Your recipes are distributed across nodes via a <em>Chef server</em>. <strong>A <em>Chef client</em>, installed on each node</strong>, is in charge of applying the recipe to its corresponding node.</p>
+<p>This guide will show you how to create and configure a Chef server and workstation on Ubuntu 18.04. You'll also learn how to bootstrap a node to manage with Chef. This will involve setting up three machines (Chef Server, Chef Workstation, and Node).</p>
+<p><img src="../images/chef-architecture.png" alt="alt text"></p>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="1-chef-server">1. <strong>Chef Server</strong></h3>
+<p>The <strong>Chef Server</strong> is the central hub where all your infrastructure configurations are stored. It holds the recipes and cookbooks that define how machines should be configured, and it communicates with Chef Clients to apply these configurations to nodes.</p>
+<h3 id="2-chef-workstation">2. <strong>Chef Workstation</strong></h3>
+<p>The <strong>Chef Workstation</strong> is where you create and manage the code (recipes and cookbooks) that will be applied to nodes. It's the machine where you write, test, and upload configurations to the Chef Server for deployment.</p>
+<h3 id="3-chef-client">3. <strong>Chef-client</strong></h3>
+<p>The <strong>Chef-client</strong> runs on each node (machine) that Chef manages. It pulls configuration data from the Chef Server and ensures that the node is in the desired state, applying any necessary changes to match the defined recipes.</p>
+<p>Ensure Workstation and Server are running <strong>Ubuntu 18.04</strong> and that they are up-to-date:</p>
+<pre class="hljs"><code><div>sudo apt update &amp;&amp; sudo apt upgrade
+</div></code></pre>
+<h2 id="chef-server-installation">Chef Server Installation</h2>
+<h3 id="install-chef-server">Install Chef Server</h3>
+<ol>
+<li>Download the latest Chef Server core package for Ubuntu 18.04:</li>
+</ol>
+<pre class="hljs"><code><div>wget https://packages.chef.io/files/stable/chef-server/13.0.17/ubuntu/18.04/chef-server-core_13.0.17-1_amd64.deb
+</div></code></pre>
+<ol start="2">
+<li>Install Chef Server:</li>
+</ol>
+<pre class="hljs"><code><div>sudo dpkg -i chef-server-core_*.deb
+</div></code></pre>
+<ol start="3">
+<li>Clean up the downloaded package: (Optional)</li>
+</ol>
+<pre class="hljs"><code><div>rm chef-server-core_*.deb
+</div></code></pre>
+<ol start="4">
+<li>Reconfigure Chef Server to start the services:</li>
+</ol>
+<pre class="hljs"><code><div>sudo chef-server-ctl reconfigure 
+</div></code></pre>
+<h3 id="create-chef-user-and-organization">Create Chef User and Organization</h3>
+<p>Create a user and an organization that will be associated with the Chef Server.</p>
+<ol>
+<li>Create a <code>.chef</code> directory to store keys:</li>
+</ol>
+<pre class="hljs"><code><div>mkdir ~/.chef
+</div></code></pre>
+<ol start="2">
+<li>Create an administrator user for Chef:</li>
+</ol>
+<pre class="hljs"><code><div>sudo chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL <span class="hljs-string">'PASSWORD'</span> --filename ~/.chef/USER_NAME.pem
+</div></code></pre>
+<p>Eg &gt;</p>
+<pre class="hljs"><code><div>chef-server-ctl user-create harry <span class="hljs-string">"Harry"</span> <span class="hljs-string">"Potter"</span> harry.potter@hogwarts.com <span class="hljs-string">"Harry@123"</span> -f /root/admin.pem
+</div></code></pre>
+<ol start="3">
+<li>Create an organization and associate the user with it:</li>
+</ol>
+<p><code>ORG_NAME</code>  must be in all lower case.</p>
+<pre class="hljs"><code><div>sudo chef-server-ctl org-create ORG_NAME <span class="hljs-string">"Full Organization Name"</span> --association_user USER_NAME --filename ~/.chef/ORG_NAME.pem
+</div></code></pre>
+<blockquote>
+<p>Replace <code>USER_NAME</code>, <code>ORG_NAME</code>, <code>FIRST_NAME</code>, <code>LAST_NAME</code>, <code>EMAIL</code>, and <code>PASSWORD</code> with your own details.</p>
+</blockquote>
+<p>Eg&gt;</p>
+<pre class="hljs"><code><div>chef-server-ctl org-create hogswarts <span class="hljs-string">"Hogwarts"</span> --association_user harry -f /root/myorg-validator.pem
+</div></code></pre>
+<p><em><strong>When you create user and organization, it will generate two .pem files under .chef folder, which is present in the home directory, to view the folder type command (ls -a) under the home directory.</strong></em></p>
+<p>When using the <code>user-list</code> or <code>org-list</code> commands, errors can occur if the Chef server is not properly configured or there are issues with connectivity, permissions, or server configuration. Here's how you can handle potential errors:</p>
+<h3 id="1-error-handling-for-user-list-and-org-list-commands">1. Error Handling for <code>user-list</code> and <code>org-list</code> Commands</h3>
+<ul>
+<li>
+<p><strong>Error Logs</strong>: When running <code>user-list</code> or <code>org-list</code>, if you encounter an error, you should check the Chef server logs for more details. The logs can be found in the following location:</p>
+<ul>
+<li><code>/var/log/chef-server/</code> (Chef server logs).</li>
+<li><code>/var/log/opscode/</code> (This directory holds the Chef server log files for different components).</li>
+</ul>
+<p>Use commands like <code>tail -f</code> or <code>cat</code> to view logs, such as:</p>
+<pre class="hljs"><code><div>tail -f /var/<span class="hljs-built_in">log</span>/chef-server/chef-server.log
+</div></code></pre>
+</li>
+<li>
+<p><strong>Permissions</strong>: Ensure you have the correct permissions to access the Chef server. Sometimes, a failure occurs because of insufficient privileges or a lack of proper authentication.</p>
+</li>
+<li>
+<p><strong>Authentication Issues</strong>: If you have problems with authentication or access to the Chef server, make sure your <code>.pem</code> files are valid and properly configured. Verify that the <code>USER_NAME.pem</code> file exists in the <code>~/.chef/</code> directory, which is needed for proper authentication.</p>
+</li>
+</ul>
+<h3 id="2-chef-folder-and-the-pem-files">2. .chef Folder and the .pem Files</h3>
+<ul>
+<li>
+<p><strong>Location of .chef Folder</strong>: The <code>.chef</code> folder is typically located in the home directory of the user running the Chef commands. You can check its existence by running:</p>
+<pre class="hljs"><code><div>ls -a ~/
+</div></code></pre>
+</li>
+<li>
+<p><strong>.pem Files</strong>: When you create a Chef user or an organization, the system generates <code>.pem</code> files for authentication purposes. These files are typically stored in the <code>.chef</code> directory. If you see files like <code>USER_NAME.pem</code> and <code>ORG_NAME.pem</code>, it means the user and organization were successfully created.</p>
+</li>
+</ul>
+<h3 id="verify-users-and-organizations">Verify Users and Organizations</h3>
+<p>You can list the users and organizations on your Chef server using:</p>
+<pre class="hljs"><code><div>sudo chef-server-ctl user-list
+sudo chef-server-ctl org-list
+</div></code></pre>
+<p>You should see in output you created user and pivotal user</p>
+<pre class="hljs"><code><div>harry
+pivotal
+</div></code></pre>
+<p>and in org list you should see your created organization</p>
+<pre class="hljs"><code><div>hogwarts
+</div></code></pre>
+<h2 id="chef-workstation-setup">Chef Workstation Setup</h2>
+<h3 id="install-chef-workstation">Install Chef Workstation</h3>
+<ol>
+<li>Download the Chef Workstation package:</li>
+</ol>
+<pre class="hljs"><code><div>wget https://packages.chef.io/files/stable/chef-workstation/0.2.43/ubuntu/18.04/chef-workstation_0.2.43-1_amd64.deb
+</div></code></pre>
+<ol start="2">
+<li>Install Chef Workstation:</li>
+</ol>
+<pre class="hljs"><code><div>sudo dpkg -i chef-workstation_*.deb
+</div></code></pre>
+<ol start="3">
+<li>Clean up the downloaded package:</li>
+</ol>
+<pre class="hljs"><code><div>rm chef-workstation_*.deb
+</div></code></pre>
+<h3 id="create-chef-repository">Create Chef Repository</h3>
+<ol>
+<li>Generate a Chef repository:</li>
+</ol>
+<pre class="hljs"><code><div>chef generate repo chef-repo 
+</div></code></pre>
+<ol start="2">
+<li>Move into the repository directory:</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> ~/chef-repo 
+</div></code></pre>
+<ol start="3">
+<li>When you create user and organization ON SERVER, it will generate two .pem files under <code>.chef</code> folder, which is present in the home directory, to view the folder type command (<code>ls -a</code>) under the home directory.</li>
+<li>Send these two files to the chef-workstation in folder (<code>~/chef-repo/.chef/</code>)</li>
+<li>How to send file: <code>scp /source/path/ username@ip:~/chef-repo/.chef/ </code>.</li>
+</ol>
+<h3 id="configure-knife">Configure Knife</h3>
+<p>Knife is a command-line tool used to manage your Chef infrastructure. To configure Knife:</p>
+<ol>
+<li>Create the <code>.chef</code> directory:</li>
+</ol>
+<pre class="hljs"><code><div>mkdir ~/chef-repo/.chef
+</div></code></pre>
+<ol start="2">
+<li>Create the Knife configuration file (<code>knife.rb</code>) in the <code>.chef</code> directory:</li>
+</ol>
+<pre class="hljs"><code><div>nano ~/chef-repo/.chef/knife.rb
+</div></code></pre>
+<p>Add the following configuration:</p>
+<pre class="hljs"><code><div>chef_server_url <span class="hljs-string">'https://SERVER_IP/organizations/ORG_NAME'</span> 
+node_name <span class="hljs-string">'USER_NAME'</span> <span class="hljs-comment">#use username that was created ON SERVER   </span>
+client_key <span class="hljs-string">'/root/chef-repo/.chef/admin.pem'</span> <span class="hljs-comment">#created on Server </span>
+ssl_verify_mode <span class="hljs-symbol">:verify_none</span>
+cache_type               <span class="hljs-string">'BasicFile'</span>
+cache_options( <span class="hljs-symbol">:path</span> =&gt; <span class="hljs-string">"<span class="hljs-subst">#{ENV[<span class="hljs-string">'HOME'</span>]}</span>/.chef/checksums"</span> )
+cookbook_path            [<span class="hljs-string">"<span class="hljs-subst">#{current_dir}</span>/../cookbooks"</span>]
+</div></code></pre>
+<h3 id="test-knife-configuration">Test Knife Configuration</h3>
+<p>Test if the configuration is working by listing the Chef clients:</p>
+<pre class="hljs"><code><div>knife client list
+</div></code></pre>
+<p>In Output you must see your org validator
+<code>hogwarts-validator</code> this means server and workstation are connected.</p>
+<h2 id="create-a-cookbook">CREATE A COOKBOOK</h2>
+<ol>
+<li>Go to Chef-Workstation, go to chef-repo/cookbooks/ run command</li>
+</ol>
+<pre class="hljs"><code><div>chef generate cookbook cookbook_name
+</div></code></pre>
+<p>This creates a cookbook template in <code>chef-repo</code> directory with a <code>cookbooks/cookbook_name/recipes/default.rb</code> recipe in it</p>
+<p>It is written in ruby language</p>
+<p>By default, Chef generates a <code>default.rb</code> recipe, but you can have as many recipes as needed within the same cookbook. The name <code>default.rb</code> is a convention, but it's not mandatory. You can create additional recipes for specific tasks, and you can name them whatever you want (e.g., <code>install.rb</code>, <code>configure.rb</code>, etc.).</p>
+<p>Is <code>default.rb</code> the only recipe we can create?</p>
+<p>No, you are not restricted to just a <code>default.rb</code> recipe. The <code>default.rb</code> file is just a convention that Chef looks for when no specific recipe is specified. You can create multiple recipes and reference them as needed, for example:</p>
+<ul>
+<li><code>install.rb</code> for installation-related tasks</li>
+<li><code>configure.rb</code> for configuration tasks</li>
+<li><code>patch_installation.rb</code> for patching tasks</li>
+<li></li>
+</ul>
+<ol start="2">
+<li><strong>Modify the <code>default.rb</code> content:</strong></li>
+</ol>
+<p>The <code>default.rb</code> recipe is written in Ruby language, and you can edit it using editors like <code>vim</code> or <code>nano</code>.</p>
+<p>To upload the cookbook to the Chef server after making changes, use the following command:</p>
+<pre class="hljs"><code><div>knife cookbook upload cookbook_name
+</div></code></pre>
+<p>This will upload the cookbook to the Chef server, making it available for clients to pull.</p>
+<h3 id="if-the-command-fails">If the command fails:</h3>
+<ol>
+<li>
+<p><strong>Check for authentication issues</strong>: Ensure your <code>knife.rb</code> configuration file is correct and you have the necessary permissions. If there are authentication errors, you might need to reauthenticate or check your Chef server credentials.</p>
+</li>
+<li>
+<p><strong>Check network connectivity</strong>: Ensure your workstation can communicate with the Chef server. Network issues could cause a failure to upload the cookbook.</p>
+</li>
+<li>
+<p><strong>Check for missing dependencies</strong>: Ensure all dependencies for the cookbook are available and properly configured. In your <code>knife.rb</code> file, make sure the <code>cookbook_path</code> is correctly set to point to the location of your cookbooks. The following line should be included in your <code>knife.rb</code>:</p>
+<pre class="hljs"><code><div>cookbook_path [<span class="hljs-string">"<span class="hljs-subst">#{current_dir}</span>/../cookbooks"</span>]
+</div></code></pre>
+<p>This ensures that Chef is aware of the correct path to your cookbooks and can find and upload them without issues.</p>
+</li>
+<li>
+<p><strong>Check cookbook name</strong>: Ensure you enter correct cookbook name</p>
+<ul>
+<li>If the upload fails, you will see an error message with details on what went wrong. Look for clues like:
+<ul>
+<li>&quot;Permission denied&quot; (authentication issues)</li>
+<li>&quot;Could not connect&quot; (network or server issues)</li>
+<li>&quot;Cookbook validation failed&quot; (cookbook-related issues)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>If you encounter a failure, review the error message to diagnose and resolve the issue.</p>
+<h2 id="bootstrap-a-node-works-only-if-you-have-ssh">Bootstrap a Node (Works only if you have SSH)</h2>
+<p>Bootstrapping a node installs the Chef client on the node and validates the node. This allows the node to read from the Chef server and pull down and apply any needed configuration updates detected by the chef-client.</p>
+<blockquote>
+<p>If you encounter any  <code>401 Unauthorized</code>  errors ensure that your  <code>ORGANIZATION.pem</code>  file has  <code>700</code>  permissions. See  <a href="https://docs.chef.io/errors.html">Chef’s troubleshooting</a>  guide for further information on diagnosing authentication errors.</p>
+</blockquote>
+<ol>
+<li>
+<p>From your  <em>workstation</em>, navigate to your  <code>~/chef-repo/.chef</code>  directory:</p>
+<pre class="hljs"><code><div>cd ~/chef-repo/.chef
+</div></code></pre>
+</li>
+<li>
+<p>Bootstrap the client node either using the client node’s root user, or a user with elevated privileges:</p>
+<ul>
+<li>
+<p><strong>As the node’s root user</strong>, change  <code>password</code>  to your root password and  <code>nodename</code>  to the desired name for your client node. You can leave this off if you would like the name to default to your node’s hostname:</p>
+<pre class="hljs"><code><div>knife bootstrap 192.0.2.0 -x root -P password --node-name nodename
+</div></code></pre>
+</li>
+<li>
+<p><strong>As a user with sudo privileges</strong>, change  <code>username</code>  to a node user,  <code>password</code>  to the user’s password and  <code>nodename</code>  to the desired name for the client node. You can leave this off if you would like the name to default to your node’s hostname:</p>
+<pre class="hljs"><code><div> knife bootstrap 192.0.2.0 -x username -P password --use-sudo-password --node-name nodename
+</div></code></pre>
+</li>
+<li>
+<p><strong>As a user with key-pair authentication</strong>, change  <code>username</code>  to a node user, and  <code>nodename</code>  to the desired name for the client node. You can leave this off if you would like the name to default to your client node’s hostname:</p>
+<pre class="hljs"><code><div>knife bootstrap 192.0.2.0 --ssh-user username --sudo --identity-file ~/.ssh/id_rsa.pub --node-name hostname
+</div></code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Confirm that the node has been bootstrapped by listing the client nodes:</p>
+<pre class="hljs"><code><div> knife client list
+</div></code></pre>
+<p>Your new client node should be included in the list.</p>
+<pre class="hljs"><code><div>workstation@workstation:~/chef-repo$ knife client list
+Test-0001
+Test-0002
+hogswarts-validator
+</div></code></pre>
+</li>
+</ol>
+<h2 id="add-the-cookbook-to-the-nodes-run-list">Add the cookbook to the node's run-list:</h2>
+<ol>
+<li>Go to Chef-Workstation run command</li>
+</ol>
+<pre class="hljs"><code><div>knife node run_list add NODE_NAME recipe[COOKBOOK_NAME]
+</div></code></pre>
+<p>(ex. knife node run_list add Test-001 recipe[example_cookbook]).</p>
+<ol start="2">
+<li>We have also created a script to add cookbook to run-list for number of nodes based on pattern</li>
+</ol>
+<p>Use the bash script provided to you move it to workstation <code>chef-repo</code> folder</p>
+<p>and then use this command</p>
+<pre class="hljs"><code><div>./upload_cookbook &lt;NODE_PATTERN&gt; &lt;COOKBOOK_NAME&gt;
+</div></code></pre>
+<p>eg .  &gt; ./upload_cookbook  Test-00 example_cookbook</p>
+<p>Script to do this</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#!/bin/bash
+</span>
+<span class="hljs-keyword">if</span> [ <span class="hljs-string">"<span class="hljs-variable">$#</span>"</span> -ne 2 ]; <span class="hljs-keyword">then</span>
+		<span class="hljs-built_in">echo</span> <span class="hljs-string">"command like ./upload_cookbook &lt;NODE_PATTERN&gt; &lt;COOKBOOK_NAME&gt;"</span>
+		<span class="hljs-built_in">exit</span>
+<span class="hljs-keyword">fi</span>
+
+<span class="hljs-comment"># Variables</span>
+COOKBOOK_NAME=<span class="hljs-variable">$2</span>   <span class="hljs-comment"># Replace with your cookbook name</span>
+PATTERN=<span class="hljs-variable">$1</span>     <span class="hljs-comment"># Replace with your desired pattern (e.g., "test-")</span>
+LOG_FILE=<span class="hljs-string">"/var/log/chef_node_update.log"</span>
+
+<span class="hljs-comment"># Upload cookbook to server</span>
+knife cookbook upload <span class="hljs-variable">$COOKBOOK_NAME</span>
+
+<span class="hljs-comment"># Fetch all nodes from the Chef server</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Fetching node list from Chef server..."</span>
+NODE_LIST=$(knife node list)
+
+<span class="hljs-comment"># Loop through each node</span>
+<span class="hljs-keyword">for</span> NODE <span class="hljs-keyword">in</span> <span class="hljs-variable">$NODE_LIST</span>; <span class="hljs-keyword">do</span>
+	<span class="hljs-keyword">if</span> [[ <span class="hljs-string">"<span class="hljs-variable">$NODE</span>"</span> == *<span class="hljs-string">"<span class="hljs-variable">$PATTERN</span>"</span>* ]]; <span class="hljs-keyword">then</span>
+		<span class="hljs-built_in">echo</span> <span class="hljs-string">"Adding cookbook '<span class="hljs-variable">$COOKBOOK_NAME</span>' to run list of node: <span class="hljs-variable">$NODE</span>"</span>
+
+		<span class="hljs-comment"># Add the cookbook to the node's run list</span>
+		knife node run_list add <span class="hljs-string">"<span class="hljs-variable">$NODE</span>"</span> <span class="hljs-string">"recipe[<span class="hljs-variable">$COOKBOOK_NAME</span>]"</span> &gt;&gt; <span class="hljs-string">"<span class="hljs-variable">$LOG_FILE</span>"</span> 2&gt;&amp;1
+
+		<span class="hljs-keyword">if</span> [ $? -eq 0 ]; <span class="hljs-keyword">then</span>
+			<span class="hljs-built_in">echo</span> <span class="hljs-string">"Successfully added '<span class="hljs-variable">$COOKBOOK_NAME</span>' to <span class="hljs-variable">$NODE</span>"</span>
+		<span class="hljs-keyword">else</span>
+			<span class="hljs-built_in">echo</span> <span class="hljs-string">"Failed to add cookbook to <span class="hljs-variable">$NODE</span>. Check <span class="hljs-variable">$LOG_FILE</span> for details."</span>
+		<span class="hljs-keyword">fi</span>
+	<span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">done</span>
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Script execution completed."</span>
+</div></code></pre>
+<p>The command <code>sudo chef-client</code> fetches the required package, which is added to the run-list.</p>
+<p>To view the status of the last pull, run the command <code>knife status</code> on the workstation. This will list all nodes and their last pull times.</p>
+<p>Output of <code>knife-status</code>  should look like this</p>
+<pre class="hljs"><code><div>3 minutes ago, Test-001, ubuntu 22.04
+3 minutes ago, Test-002, ubuntu 22.04
+3 minutes ago, Test-003, ubuntu 22.04
+</div></code></pre>
+<p><a name="setup-chef-client"></a></p>
+<h2 id="to-setup-chef-client-in-goldmaster-vm-if-ssh-is-disabled">To Setup Chef-Client in Goldmaster VM if SSH is disabled</h2>
+<ol>
+<li>This settings are for you to create a fresh client setup without using Bootstrap command because it uses SSH so now client and server will talk with HTTP (443)</li>
+</ol>
+<p><strong>CHEF CLIENT SETUP:</strong></p>
+<ol>
+<li>
+<p>Install Chef client from the chef website.</p>
+</li>
+<li>
+<p>This is a link to download Chef-Client
+(<a href="https://downloads.chef.io/chef">https://downloads.chef.io/chef</a>)
+OR
+<a href="%22https://community.chef.io/downloads/tools/infra-client?os=ubuntu%22">https://community.chef.io/downloads/tools/infra-client?os=ubuntu</a></p>
+</li>
+</ol>
+<p>select prefered OS and version</p>
+<blockquote>
+<p>You can install Ubuntu 20.04 version chef-client in  22.04
+We have tested with this and it is working fine</p>
+</blockquote>
+<ol start="3">
+<li>Install it using command <code>dpkg -i *c</code></li>
+<li>After that go to <code>/etc</code> folder <code>cd /etc</code>, make directory <code>mkdir chef</code>, under chef folder make a file <code>client.rb</code>.</li>
+</ol>
+<p>Add the following configuration:</p>
+<pre class="hljs"><code><div>chef_server_url <span class="hljs-string">"[https://CHEF-SERVER-IP/organizations/ORGNAME"</span>]
+validation_client_name <span class="hljs-string">"ORGNAME-validator"</span>  
+log_location <span class="hljs-string">"/var/log/chef-exec.log"</span>    
+ssl_verify_mode <span class="hljs-symbol">:verify_none</span>  
+validation_key <span class="hljs-string">'/etc/chef/myorg-validator.pem'</span>
+interval <span class="hljs-number">120</span> <span class="hljs-comment"># pulls changes every 2 minutes</span>
+splay <span class="hljs-number">20</span> <span class="hljs-comment"># random delay to help server not overload</span>
+</div></code></pre>
+<p>All activity is logged to <code>/var/log/chef-exec.log</code>. You can view the log file to check the output of <code>chef-client</code> execution:</p>
+<pre class="hljs"><code><div>tail -f /var/<span class="hljs-built_in">log</span>/chef-exec.log
+</div></code></pre>
+<ol start="5">
+<li>When you create user and organization ON SERVER, it will generate two .pem files under  <code>.chef</code>  folder, which is present in the home directory, to view the folder type command (<code>ls -a</code>) under the home directory.</li>
+<li>Send these two files to the chef client in folder (<code>~/etc/chef/</code>)</li>
+<li>How to send file:  <code>scp /source/path/ username@ip:~/etc/chef/</code>.</li>
+</ol>
+<h3 id="create-a-cronjob-to-connect-node-automatically-on-reboot">Create a cronjob to connect node automatically on reboot</h3>
+<p>To add a cronjob to <code>/etc/crontab</code> for running <code>chef-client</code> on system startup follow these steps:</p>
+<ol>
+<li>
+<p>Open <code>/etc/crontab</code> using a text editor:</p>
+<pre class="hljs"><code><div>sudo vim /etc/crontab
+</div></code></pre>
+</li>
+<li>
+<p>Add the following lines:</p>
+<p><strong>At first boot</strong> (delays <code>chef-client</code> by 180 seconds to allow the system to stabilize):</p>
+<pre class="hljs"><code><div>@reboot (<span class="hljs-keyword">sleep</span> <span class="hljs-number">180</span>; chef-client)
+</div></code></pre>
+</li>
+<li>
+<p>Save the file and exit the editor.</p>
+</li>
+</ol>
+<ul>
+<li>On the <strong>first boot</strong>, the cronjob triggers the <code>chef-client</code> with a 180-second delay to allow the system to stabilize. This process will authenticate the node, create <code>client.pem</code>, and connect to the Chef server for the initial setup.</li>
+</ul>
+<h3 id="create-a-cronjob-to-pull-changes-if-you-have-not-used-interval-and-splay-in-clientrb">Create a cronjob to pull changes if you have not used interval and splay in client.rb</h3>
+<ol>
+<li>
+<p>Open <code>/etc/crontab</code> using a text editor:</p>
+<pre class="hljs"><code><div>sudo nano /etc/crontab
+</div></code></pre>
+</li>
+<li>
+<p><strong>Every 30 minutes</strong> (executes <code>chef-client</code> to pull configuration changes from the Chef server):</p>
+<pre class="hljs"><code><div><span class="hljs-string">`*/30 * * * * chef-client
+</span></div></code></pre>
+</li>
+<li>
+<p>Save the file and exit the editor.</p>
+</li>
+</ol>
+<h3 id="what-happens">What happens:</h3>
+<ul>
+<li>Every <strong>30 minutes</strong> thereafter, the cronjob triggers <code>chef-client</code> to check for configuration changes and apply them.</li>
+</ul>
+<p>This setup ensures that chef-client runs on startup (with a delay) and periodically every 30 minutes, keeping the system synchronized with the Chef server.</p>
 
 </body>
 </html>
